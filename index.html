@@ -14,21 +14,38 @@
   --text:#e8e8e8;--muted:#888;--accent:#6c5ce7;--accent2:#a29bfe;
   --green:#00b894;--orange:#fdcb6e;--red:#e17055;--blue:#74b9ff;
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px;-webkit-tap-highlight-color:transparent}
-.container{max-width:500px;margin:0 auto;padding:16px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-tap-highlight-color:transparent}
 
-/* Header */
+/* ─── LOCK SCREEN ─── */
+#lockScreen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#lockScreen.hidden{display:none}
+.lock-icon{width:60px;height:60px;background:var(--accent);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
+.lock-title{font-size:22px;font-weight:700;margin-bottom:6px}
+.lock-sub{font-size:14px;color:var(--muted);margin-bottom:30px}
+.pin-dots{display:flex;gap:14px;margin-bottom:30px}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);transition:.2s}
+.pin-dot.filled{background:var(--accent);border-color:var(--accent)}
+.pin-dot.error{background:var(--red);border-color:var(--red);animation:shake .4s}
+.numpad{display:grid;grid-template-columns:repeat(3,72px);gap:12px}
+.numpad button{width:72px;height:72px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:26px;font-weight:500;cursor:pointer;transition:.15s;-webkit-tap-highlight-color:transparent}
+.numpad button:active{background:var(--accent);border-color:var(--accent);transform:scale(0.95)}
+.numpad .fn{font-size:14px;background:transparent;border:none;color:var(--muted)}
+.numpad .fn:active{color:var(--text);background:transparent}
+.lock-error{color:var(--red);font-size:13px;height:20px;margin-bottom:10px}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}}
+
+/* ─── APP ─── */
+#app{display:none}
+#app.unlocked{display:block;padding-bottom:80px}
+.container{max-width:500px;margin:0 auto;padding:16px}
 .header{display:flex;align-items:center;justify-content:space-between;padding:12px 0;margin-bottom:8px}
 .header h1{font-size:20px;font-weight:700;letter-spacing:-0.5px}
 .header-icon{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-
-/* Bottom Nav */
-.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:100}
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:none;justify-content:space-around;padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:100}
+.nav.show{display:flex}
 .nav-btn{background:none;border:none;color:var(--muted);font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 12px;cursor:pointer;transition:.2s}
 .nav-btn.active{color:var(--accent2)}
 .nav-btn svg{width:22px;height:22px}
-
-/* Cards */
 .card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--border)}
 .card-title{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;font-weight:600}
 .stat-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0}
@@ -36,28 +53,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .stat-value{font-size:16px;font-weight:600}
 .stat-value.earnings{color:var(--green)}
 .stat-big{font-size:28px;font-weight:700}
-
-/* Period Tabs */
 .period-tabs{display:flex;gap:6px;margin-bottom:16px}
 .period-tab{flex:1;padding:8px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
 .period-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-/* Date Nav */
 .date-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .date-nav button{background:var(--surface);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .date-nav .date-label{font-size:15px;font-weight:600}
-
-/* Shift List */
 .shift-item{display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--surface);border-radius:10px;margin-bottom:8px;border-left:3px solid var(--accent)}
-.shift-item.job2{border-left-color:var(--blue)}
 .shift-day{font-size:13px;color:var(--muted)}
 .shift-time{font-size:14px;font-weight:500;margin-top:2px}
 .shift-right{text-align:right}
 .shift-hours{font-size:14px;font-weight:600}
 .shift-pay{font-size:12px;color:var(--green)}
 .shift-job{font-size:11px;color:var(--muted);margin-top:2px}
-
-/* Forms */
 .form-group{margin-bottom:14px}
 .form-group label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:500}
 .form-group input,.form-group select{width:100%;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:15px;outline:none}
@@ -67,8 +75,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .btn-primary:active{transform:scale(0.98);opacity:0.9}
 .btn-danger{background:transparent;border:1px solid var(--red);color:var(--red);margin-top:8px}
 .btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
-
-/* Mini Calendar */
 .mini-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:12px}
 .mini-cal .day-header{text-align:center;font-size:11px;color:var(--muted);padding:4px 0;font-weight:600}
 .mini-cal .day-cell{text-align:center;padding:6px 2px;font-size:12px;border-radius:6px;cursor:pointer;position:relative}
@@ -76,153 +82,102 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .mini-cal .day-cell.has-shift::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--green)}
 .mini-cal .day-cell.other-month{color:var(--border)}
 .mini-cal .day-cell.selected{outline:2px solid var(--accent2)}
-
-/* Screen transitions */
 .screen{display:none}
 .screen.active{display:block}
-
-/* Toggle */
-.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
-.toggle{width:44px;height:24px;background:var(--border);border-radius:12px;position:relative;cursor:pointer;transition:.2s}
-.toggle.on{background:var(--accent)}
-.toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s}
-.toggle.on::after{left:22px}
-
-/* Progress bar */
-.progress-bar{height:6px;background:var(--surface);border-radius:3px;overflow:hidden;margin-top:8px}
-.progress-fill{height:100%;border-radius:3px;transition:width .3s}
-
-/* Empty state */
+.breakdown-item{margin-bottom:12px}
+.breakdown-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+.breakdown-bar{height:8px;background:var(--surface);border-radius:4px;overflow:hidden}
+.breakdown-fill{height:100%;border-radius:4px}
+.week-summary{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
+.week-day{text-align:center;padding:8px 2px;background:var(--surface);border-radius:8px;font-size:11px}
+.week-day .wh{font-size:14px;font-weight:700;margin:4px 0}
+.week-day .wl{color:var(--muted)}
 .empty-state{text-align:center;padding:40px 20px;color:var(--muted)}
-.empty-state svg{width:48px;height:48px;margin-bottom:12px;opacity:0.3}
 .empty-state p{font-size:14px}
-
-/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .modal-overlay.show{display:flex}
 .modal{background:var(--bg);border-radius:16px 16px 0 0;padding:24px 20px max(20px,env(safe-area-inset-bottom));width:100%;max-width:500px;max-height:85vh;overflow-y:auto}
 .modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px}
 .modal h2{font-size:18px;margin-bottom:16px}
-
-/* Breakdown bars */
-.breakdown-item{margin-bottom:12px}
-.breakdown-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
-.breakdown-bar{height:8px;background:var(--surface);border-radius:4px;overflow:hidden}
-.breakdown-fill{height:100%;border-radius:4px}
-
-/* Scrollable */
-.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.scroll-x::-webkit-scrollbar{display:none}
-
-/* Week summary row */
-.week-summary{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
-.week-day{text-align:center;padding:8px 2px;background:var(--surface);border-radius:8px;font-size:11px}
-.week-day .wh{font-size:14px;font-weight:700;margin:4px 0}
-.week-day .wl{color:var(--muted)}
-
 </style>
 </head>
 <body>
 
-<div class="container">
-  <!-- DASHBOARD -->
-  <div id="screen-dashboard" class="screen active">
-    <div class="header">
-      <h1>ShiftTrack</h1>
-      <div class="header-icon">⏱</div>
-    </div>
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="lock-icon">🔒</div>
+  <div class="lock-title">ShiftTrack</div>
+  <div class="lock-sub">Enter your passcode</div>
+  <div class="pin-dots" id="pinDots">
+    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+  </div>
+  <div class="lock-error" id="lockError"></div>
+  <div class="numpad">
+    <button onclick="pinPress('1')">1</button>
+    <button onclick="pinPress('2')">2</button>
+    <button onclick="pinPress('3')">3</button>
+    <button onclick="pinPress('4')">4</button>
+    <button onclick="pinPress('5')">5</button>
+    <button onclick="pinPress('6')">6</button>
+    <button onclick="pinPress('7')">7</button>
+    <button onclick="pinPress('8')">8</button>
+    <button onclick="pinPress('9')">9</button>
+    <button class="fn"></button>
+    <button onclick="pinPress('0')">0</button>
+    <button class="fn" onclick="pinDelete()">⌫</button>
+  </div>
+</div>
 
+<!-- MAIN APP -->
+<div id="app">
+<div class="container">
+  <div id="screen-dashboard" class="screen active">
+    <div class="header"><h1>ShiftTrack</h1><div class="header-icon">⏱</div></div>
     <div class="period-tabs" id="periodTabs">
       <div class="period-tab active" data-period="day">Day</div>
       <div class="period-tab" data-period="week">Week</div>
       <div class="period-tab" data-period="month">Month</div>
     </div>
-
     <div class="date-nav">
       <button onclick="navPeriod(-1)">‹</button>
       <span class="date-label" id="periodLabel">Today</span>
       <button onclick="navPeriod(1)">›</button>
     </div>
-
     <div class="card">
       <div class="card-title" id="summaryTitle">Today's Summary</div>
       <div style="display:flex;gap:16px;margin-bottom:8px">
-        <div style="flex:1">
-          <div class="stat-label">Hours</div>
-          <div class="stat-big" id="summaryHours">0</div>
-        </div>
-        <div style="flex:1">
-          <div class="stat-label">Earnings</div>
-          <div class="stat-big earnings" id="summaryEarnings">$0</div>
-        </div>
+        <div style="flex:1"><div class="stat-label">Hours</div><div class="stat-big" id="summaryHours">0</div></div>
+        <div style="flex:1"><div class="stat-label">Earnings</div><div class="stat-big earnings" id="summaryEarnings">$0</div></div>
       </div>
-      <div class="stat-row">
-        <span class="stat-label">Shifts</span>
-        <span class="stat-value" id="summaryShifts">0</span>
-      </div>
-      <div class="stat-row" id="overtimeRow" style="display:none">
-        <span class="stat-label">Overtime hours</span>
-        <span class="stat-value" style="color:var(--orange)" id="summaryOT">0</span>
-      </div>
+      <div class="stat-row"><span class="stat-label">Shifts</span><span class="stat-value" id="summaryShifts">0</span></div>
+      <div class="stat-row" id="overtimeRow" style="display:none"><span class="stat-label">Overtime hours</span><span class="stat-value" style="color:var(--orange)" id="summaryOT">0</span></div>
     </div>
-
     <div id="breakdownSection"></div>
-
-    <div id="shiftsListSection">
-      <div class="card-title" style="margin-bottom:10px">SHIFTS</div>
-      <div id="shiftsList"></div>
-    </div>
+    <div id="shiftsListSection"><div class="card-title" style="margin-bottom:10px">SHIFTS</div><div id="shiftsList"></div></div>
   </div>
 
-  <!-- CALENDAR -->
   <div id="screen-calendar" class="screen">
-    <div class="header">
-      <h1>Calendar</h1>
-      <button onclick="openAddShift()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">+ Add</button>
-    </div>
-    <div class="date-nav">
-      <button onclick="navCalMonth(-1)">‹</button>
-      <span class="date-label" id="calMonthLabel"></span>
-      <button onclick="navCalMonth(1)">›</button>
-    </div>
+    <div class="header"><h1>Calendar</h1><button onclick="openAddShift()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">+ Add</button></div>
+    <div class="date-nav"><button onclick="navCalMonth(-1)">‹</button><span class="date-label" id="calMonthLabel"></span><button onclick="navCalMonth(1)">›</button></div>
     <div class="mini-cal" id="calGrid"></div>
-    <div style="margin-top:12px">
-      <div class="card-title" id="calDayTitle">Selected Day</div>
-      <div id="calDayShifts"></div>
-    </div>
+    <div style="margin-top:12px"><div class="card-title" id="calDayTitle">Selected Day</div><div id="calDayShifts"></div></div>
   </div>
 
-  <!-- JOBS -->
   <div id="screen-jobs" class="screen">
-    <div class="header">
-      <h1>Jobs</h1>
-      <button onclick="openAddJob()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">+ Add</button>
-    </div>
+    <div class="header"><h1>Jobs</h1><button onclick="openAddJob()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">+ Add</button></div>
     <div id="jobsList"></div>
   </div>
 
-  <!-- SETTINGS -->
   <div id="screen-settings" class="screen">
     <div class="header"><h1>Settings</h1></div>
     <div class="card">
       <div class="card-title">Overtime</div>
-      <div class="form-group">
-        <label>Weekly OT threshold (hours)</label>
-        <input type="number" id="otThreshold" value="40" onchange="saveSettings()">
-      </div>
-      <div class="form-group">
-        <label>OT multiplier</label>
-        <input type="number" step="0.1" id="otMultiplier" value="1.5" onchange="saveSettings()">
-      </div>
+      <div class="form-group"><label>Weekly OT threshold (hours)</label><input type="number" id="otThreshold" value="40" onchange="saveSettings()"></div>
+      <div class="form-group"><label>OT multiplier</label><input type="number" step="0.1" id="otMultiplier" value="1.5" onchange="saveSettings()"></div>
     </div>
     <div class="card">
       <div class="card-title">Week starts on</div>
-      <div class="form-group">
-        <select id="weekStart" onchange="saveSettings()">
-          <option value="0">Sunday</option>
-          <option value="1">Monday</option>
-        </select>
-      </div>
+      <div class="form-group"><select id="weekStart" onchange="saveSettings()"><option value="0">Sunday</option><option value="1">Monday</option></select></div>
     </div>
     <div class="card">
       <div class="card-title">Data</div>
@@ -231,617 +186,163 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     </div>
   </div>
 </div>
+</div>
 
-<!-- Bottom Nav -->
-<nav class="nav">
-  <button class="nav-btn active" data-screen="dashboard">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
-    Home
-  </button>
-  <button class="nav-btn" data-screen="calendar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-    Calendar
-  </button>
-  <button class="nav-btn" data-screen="jobs">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
-    Jobs
-  </button>
-  <button class="nav-btn" data-screen="settings">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-    Settings
-  </button>
+<nav class="nav" id="mainNav">
+  <button class="nav-btn active" data-screen="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>Home</button>
+  <button class="nav-btn" data-screen="calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Calendar</button>
+  <button class="nav-btn" data-screen="jobs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>Jobs</button>
+  <button class="nav-btn" data-screen="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</button>
 </nav>
 
-<!-- Add Shift Modal -->
-<div class="modal-overlay" id="shiftModal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h2 id="shiftModalTitle">Add Shift</h2>
-    <div class="form-group">
-      <label>Job</label>
-      <select id="shiftJob"></select>
-    </div>
-    <div class="form-group">
-      <label>Date</label>
-      <input type="date" id="shiftDate">
-    </div>
-    <div class="form-group">
-      <label>Start Time</label>
-      <input type="time" id="shiftStart">
-    </div>
-    <div class="form-group">
-      <label>End Time</label>
-      <input type="time" id="shiftEnd">
-    </div>
-    <div class="form-group">
-      <label>Break (minutes)</label>
-      <input type="number" id="shiftBreak" value="0" min="0">
-    </div>
-    <div class="form-group">
-      <label>Notes (optional)</label>
-      <input type="text" id="shiftNotes" placeholder="e.g. covered for Mike">
-    </div>
-    <button class="btn btn-primary" onclick="saveShift()">Save Shift</button>
-    <button class="btn btn-danger" id="deleteShiftBtn" style="display:none" onclick="deleteShift()">Delete Shift</button>
-    <button class="btn btn-secondary" style="margin-top:8px" onclick="closeModal('shiftModal')">Cancel</button>
-  </div>
-</div>
+<!-- Modals -->
+<div class="modal-overlay" id="shiftModal"><div class="modal">
+  <div class="modal-handle"></div><h2 id="shiftModalTitle">Add Shift</h2>
+  <div class="form-group"><label>Job</label><select id="shiftJob"></select></div>
+  <div class="form-group"><label>Date</label><input type="date" id="shiftDate"></div>
+  <div class="form-group"><label>Start Time</label><input type="time" id="shiftStart"></div>
+  <div class="form-group"><label>End Time</label><input type="time" id="shiftEnd"></div>
+  <div class="form-group"><label>Break (minutes)</label><input type="number" id="shiftBreak" value="0" min="0"></div>
+  <div class="form-group"><label>Notes (optional)</label><input type="text" id="shiftNotes" placeholder="e.g. covered for Mike"></div>
+  <button class="btn btn-primary" onclick="saveShift()">Save Shift</button>
+  <button class="btn btn-danger" id="deleteShiftBtn" style="display:none" onclick="deleteShift()">Delete Shift</button>
+  <button class="btn btn-secondary" style="margin-top:8px" onclick="closeModal('shiftModal')">Cancel</button>
+</div></div>
 
-<!-- Add Job Modal -->
-<div class="modal-overlay" id="jobModal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h2 id="jobModalTitle">Add Job</h2>
-    <div class="form-group">
-      <label>Job Name</label>
-      <input type="text" id="jobName" placeholder="e.g. Hospital, Retail">
-    </div>
-    <div class="form-group">
-      <label>Hourly Rate ($)</label>
-      <input type="number" step="0.01" id="jobRate" placeholder="15.00">
-    </div>
-    <div class="form-group">
-      <label>Color</label>
-      <select id="jobColor">
-        <option value="#6c5ce7">Purple</option>
-        <option value="#74b9ff">Blue</option>
-        <option value="#00b894">Green</option>
-        <option value="#fdcb6e">Yellow</option>
-        <option value="#e17055">Orange</option>
-        <option value="#fd79a8">Pink</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Type</label>
-      <select id="jobType">
-        <option value="rotating">Rotating Schedule (2-week block)</option>
-        <option value="prn">PRN / As Needed</option>
-        <option value="fixed">Fixed Weekly</option>
-      </select>
-    </div>
-    <button class="btn btn-primary" onclick="saveJob()">Save Job</button>
-    <button class="btn btn-danger" id="deleteJobBtn" style="display:none" onclick="deleteJob()">Delete Job</button>
-    <button class="btn btn-secondary" style="margin-top:8px" onclick="closeModal('jobModal')">Cancel</button>
-  </div>
-</div>
+<div class="modal-overlay" id="jobModal"><div class="modal">
+  <div class="modal-handle"></div><h2 id="jobModalTitle">Add Job</h2>
+  <div class="form-group"><label>Job Name</label><input type="text" id="jobName" placeholder="e.g. Hospital, Retail"></div>
+  <div class="form-group"><label>Hourly Rate ($)</label><input type="number" step="0.01" id="jobRate" placeholder="15.00"></div>
+  <div class="form-group"><label>Color</label><select id="jobColor"><option value="#6c5ce7">Purple</option><option value="#74b9ff">Blue</option><option value="#00b894">Green</option><option value="#fdcb6e">Yellow</option><option value="#e17055">Orange</option><option value="#fd79a8">Pink</option></select></div>
+  <div class="form-group"><label>Type</label><select id="jobType"><option value="rotating">Rotating Schedule (2-week block)</option><option value="prn">PRN / As Needed</option><option value="fixed">Fixed Weekly</option></select></div>
+  <button class="btn btn-primary" onclick="saveJob()">Save Job</button>
+  <button class="btn btn-danger" id="deleteJobBtn" style="display:none" onclick="deleteJob()">Delete Job</button>
+  <button class="btn btn-secondary" style="margin-top:8px" onclick="closeModal('jobModal')">Cancel</button>
+</div></div>
 
 <script>
-// ─── STATE ───
-let state = {
-  jobs: [],
-  shifts: [],
-  settings: { otThreshold: 40, otMultiplier: 1.5, weekStart: 0 }
-};
+// ─── PASSCODE ───
+const CORRECT_PIN='9594';
+let pinEntry='',pinLocked=false;
 
-let currentPeriod = 'day';
-let periodOffset = 0;
-let calMonth = new Date().getMonth();
-let calYear = new Date().getFullYear();
-let selectedCalDate = toDateStr(new Date());
-let editingShiftId = null;
-let editingJobId = null;
-
-// ─── PERSISTENCE ───
-function load() {
-  try {
-    const d = localStorage.getItem('shifttrack');
-    if (d) state = JSON.parse(d);
-  } catch(e) {}
-  document.getElementById('otThreshold').value = state.settings.otThreshold;
-  document.getElementById('otMultiplier').value = state.settings.otMultiplier;
-  document.getElementById('weekStart').value = state.settings.weekStart;
+function pinPress(n){
+  if(pinLocked)return;
+  pinEntry+=n;updateDots();
+  if(pinEntry.length===4){
+    if(pinEntry===CORRECT_PIN){unlock()}
+    else{
+      pinLocked=true;
+      document.getElementById('lockError').textContent='Incorrect passcode';
+      document.querySelectorAll('.pin-dot').forEach(d=>d.classList.add('error'));
+      setTimeout(()=>{pinEntry='';pinLocked=false;document.getElementById('lockError').textContent='';updateDots();document.querySelectorAll('.pin-dot').forEach(d=>d.classList.remove('error'))},800);
+    }
+  }
 }
-function save() { localStorage.setItem('shifttrack', JSON.stringify(state)); }
+function pinDelete(){if(pinLocked)return;pinEntry=pinEntry.slice(0,-1);updateDots()}
+function updateDots(){document.querySelectorAll('.pin-dot').forEach((d,i)=>{d.classList.toggle('filled',i<pinEntry.length)})}
+function unlock(){
+  document.getElementById('lockScreen').classList.add('hidden');
+  document.getElementById('app').classList.add('unlocked');
+  document.getElementById('mainNav').classList.add('show');
+  load();renderDashboard();
+}
+
+// ─── STATE ───
+let state={jobs:[],shifts:[],settings:{otThreshold:40,otMultiplier:1.5,weekStart:0}};
+let currentPeriod='day',periodOffset=0,calMonth=new Date().getMonth(),calYear=new Date().getFullYear(),selectedCalDate=toDateStr(new Date()),editingShiftId=null,editingJobId=null;
+
+function load(){try{const d=localStorage.getItem('shifttrack');if(d)state=JSON.parse(d)}catch(e){}document.getElementById('otThreshold').value=state.settings.otThreshold;document.getElementById('otMultiplier').value=state.settings.otMultiplier;document.getElementById('weekStart').value=state.settings.weekStart}
+function save(){localStorage.setItem('shifttrack',JSON.stringify(state))}
 
 // ─── HELPERS ───
-function toDateStr(d) {
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-}
-function parseDate(s) {
-  const [y,m,d] = s.split('-').map(Number);
-  return new Date(y, m-1, d);
-}
-function formatDate(s) {
-  const d = parseDate(s);
-  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
-}
-function formatMoney(n) { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
-function uid() { return Date.now().toString(36) + Math.random().toString(36).substr(2,5); }
-
-function calcHours(start, end, breakMin) {
-  const [sh,sm] = start.split(':').map(Number);
-  const [eh,em] = end.split(':').map(Number);
-  let mins = (eh*60+em) - (sh*60+sm);
-  if (mins < 0) mins += 24*60; // overnight
-  mins -= (breakMin || 0);
-  return Math.max(0, mins / 60);
-}
-
-function getWeekRange(date) {
-  const d = new Date(date);
-  const day = d.getDay();
-  const ws = state.settings.weekStart;
-  const diff = (day - ws + 7) % 7;
-  const start = new Date(d);
-  start.setDate(d.getDate() - diff);
-  const end = new Date(start);
-  end.setDate(start.getDate() + 6);
-  return { start: toDateStr(start), end: toDateStr(end) };
-}
-
-function getMonthRange(year, month) {
-  const start = new Date(year, month, 1);
-  const end = new Date(year, month + 1, 0);
-  return { start: toDateStr(start), end: toDateStr(end) };
-}
-
-function shiftsInRange(startStr, endStr) {
-  return state.shifts.filter(s => s.date >= startStr && s.date <= endStr);
-}
-
-function getJobById(id) { return state.jobs.find(j => j.id === id); }
-
-function computeSummary(shifts) {
-  let hours = 0, earnings = 0, count = shifts.length;
-  const byJob = {};
-  shifts.forEach(s => {
-    const h = calcHours(s.start, s.end, s.breakMin);
-    const job = getJobById(s.jobId);
-    const rate = job ? job.rate : 0;
-    hours += h;
-    earnings += h * rate;
-    if (!byJob[s.jobId]) byJob[s.jobId] = { hours: 0, earnings: 0, name: job ? job.name : 'Unknown', color: job ? job.color : '#666' };
-    byJob[s.jobId].hours += h;
-    byJob[s.jobId].earnings += h * rate;
-  });
-  return { hours, earnings, count, byJob };
-}
+function toDateStr(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function parseDate(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function formatDate(s){return parseDate(s).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
+function formatMoney(n){return'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,5)}
+function calcHours(start,end,breakMin){const[sh,sm]=start.split(':').map(Number);const[eh,em]=end.split(':').map(Number);let mins=(eh*60+em)-(sh*60+sm);if(mins<0)mins+=24*60;mins-=(breakMin||0);return Math.max(0,mins/60)}
+function getWeekRange(date){const d=new Date(date);const day=d.getDay();const ws=state.settings.weekStart;const diff=(day-ws+7)%7;const start=new Date(d);start.setDate(d.getDate()-diff);const end=new Date(start);end.setDate(start.getDate()+6);return{start:toDateStr(start),end:toDateStr(end)}}
+function getMonthRange(y,m){return{start:toDateStr(new Date(y,m,1)),end:toDateStr(new Date(y,m+1,0))}}
+function shiftsInRange(s,e){return state.shifts.filter(x=>x.date>=s&&x.date<=e)}
+function getJobById(id){return state.jobs.find(j=>j.id===id)}
+function computeSummary(shifts){let hours=0,earnings=0,count=shifts.length;const byJob={};shifts.forEach(s=>{const h=calcHours(s.start,s.end,s.breakMin);const job=getJobById(s.jobId);const rate=job?job.rate:0;hours+=h;earnings+=h*rate;if(!byJob[s.jobId])byJob[s.jobId]={hours:0,earnings:0,name:job?job.name:'Unknown',color:job?job.color:'#666'};byJob[s.jobId].hours+=h;byJob[s.jobId].earnings+=h*rate});return{hours,earnings,count,byJob}}
 
 // ─── NAV ───
-document.querySelectorAll('.nav-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('screen-' + btn.dataset.screen).classList.add('active');
-    if (btn.dataset.screen === 'calendar') renderCalendar();
-    if (btn.dataset.screen === 'jobs') renderJobs();
-    if (btn.dataset.screen === 'dashboard') renderDashboard();
-  });
-});
-
-// ─── PERIOD TABS ───
-document.querySelectorAll('.period-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.period-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    currentPeriod = tab.dataset.period;
-    periodOffset = 0;
-    renderDashboard();
-  });
-});
-
-function navPeriod(dir) { periodOffset += dir; renderDashboard(); }
+document.querySelectorAll('.nav-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+btn.dataset.screen).classList.add('active');if(btn.dataset.screen==='calendar')renderCalendar();if(btn.dataset.screen==='jobs')renderJobs();if(btn.dataset.screen==='dashboard')renderDashboard()})});
+document.querySelectorAll('.period-tab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.period-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');currentPeriod=tab.dataset.period;periodOffset=0;renderDashboard()})});
+function navPeriod(dir){periodOffset+=dir;renderDashboard()}
 
 // ─── DASHBOARD ───
-function renderDashboard() {
-  const today = new Date();
-  let startStr, endStr, label, titlePrefix;
+function renderDashboard(){
+  const today=new Date();let startStr,endStr,label,titlePrefix;
+  if(currentPeriod==='day'){const d=new Date(today);d.setDate(d.getDate()+periodOffset);startStr=endStr=toDateStr(d);label=periodOffset===0?'Today':formatDate(startStr);titlePrefix="Day's"}
+  else if(currentPeriod==='week'){const d=new Date(today);d.setDate(d.getDate()+periodOffset*7);const range=getWeekRange(d);startStr=range.start;endStr=range.end;const s=parseDate(startStr),e=parseDate(endStr);label=s.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' – '+e.toLocaleDateString('en-US',{month:'short',day:'numeric'});titlePrefix="Week's"}
+  else{const d=new Date(today.getFullYear(),today.getMonth()+periodOffset,1);const range=getMonthRange(d.getFullYear(),d.getMonth());startStr=range.start;endStr=range.end;label=d.toLocaleDateString('en-US',{month:'long',year:'numeric'});titlePrefix="Month's"}
 
-  if (currentPeriod === 'day') {
-    const d = new Date(today);
-    d.setDate(d.getDate() + periodOffset);
-    startStr = endStr = toDateStr(d);
-    label = periodOffset === 0 ? 'Today' : formatDate(startStr);
-    titlePrefix = "Day's";
-  } else if (currentPeriod === 'week') {
-    const d = new Date(today);
-    d.setDate(d.getDate() + periodOffset * 7);
-    const range = getWeekRange(d);
-    startStr = range.start;
-    endStr = range.end;
-    const s = parseDate(startStr), e = parseDate(endStr);
-    label = s.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' – ' + e.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-    titlePrefix = "Week's";
-  } else {
-    const d = new Date(today.getFullYear(), today.getMonth() + periodOffset, 1);
-    const range = getMonthRange(d.getFullYear(), d.getMonth());
-    startStr = range.start;
-    endStr = range.end;
-    label = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    titlePrefix = "Month's";
-  }
+  document.getElementById('periodLabel').textContent=label;
+  document.getElementById('summaryTitle').textContent=titlePrefix+' Summary';
+  const shifts=shiftsInRange(startStr,endStr);const summary=computeSummary(shifts);
+  document.getElementById('summaryHours').textContent=summary.hours.toFixed(1);
+  document.getElementById('summaryEarnings').textContent=formatMoney(summary.earnings);
+  document.getElementById('summaryShifts').textContent=summary.count;
 
-  document.getElementById('periodLabel').textContent = label;
-  document.getElementById('summaryTitle').textContent = titlePrefix + ' Summary';
+  const otRow=document.getElementById('overtimeRow');
+  if(currentPeriod==='week'){const ot=Math.max(0,summary.hours-state.settings.otThreshold);otRow.style.display=ot>0?'flex':'none';document.getElementById('summaryOT').textContent=ot.toFixed(1);if(ot>0){const maxRate=Math.max(...state.jobs.map(j=>j.rate||0),0);document.getElementById('summaryEarnings').textContent=formatMoney(summary.earnings+ot*maxRate*(state.settings.otMultiplier-1))}}else{otRow.style.display='none'}
 
-  const shifts = shiftsInRange(startStr, endStr);
-  const summary = computeSummary(shifts);
+  const breakdownEl=document.getElementById('breakdownSection');const jobKeys=Object.keys(summary.byJob);
+  if(jobKeys.length>0&&summary.hours>0){let html='<div class="card"><div class="card-title">Breakdown by Job</div>';jobKeys.forEach(jid=>{const j=summary.byJob[jid];const pct=summary.hours>0?(j.hours/summary.hours*100):0;html+=`<div class="breakdown-item"><div class="breakdown-label"><span>${j.name}</span><span>${j.hours.toFixed(1)}h · ${formatMoney(j.earnings)}</span></div><div class="breakdown-bar"><div class="breakdown-fill" style="width:${pct}%;background:${j.color}"></div></div></div>`});html+='</div>';breakdownEl.innerHTML=html}else{breakdownEl.innerHTML=''}
 
-  document.getElementById('summaryHours').textContent = summary.hours.toFixed(1);
-  document.getElementById('summaryEarnings').textContent = formatMoney(summary.earnings);
-  document.getElementById('summaryShifts').textContent = summary.count;
+  if(currentPeriod==='week'){const days=['S','M','T','W','T','F','S'];const ws=state.settings.weekStart;const reordered=[...days.slice(ws),...days.slice(0,ws)];let wh='<div class="week-summary">';for(let i=0;i<7;i++){const d=new Date(parseDate(startStr));d.setDate(d.getDate()+i);const ds=toDateStr(d);const dayShifts=state.shifts.filter(s=>s.date===ds);let dh=0;dayShifts.forEach(s=>dh+=calcHours(s.start,s.end,s.breakMin));wh+=`<div class="week-day"><div class="wl">${reordered[i]}</div><div class="wh" style="color:${dh>0?'var(--green)':'var(--muted)'}">${dh>0?dh.toFixed(1):'-'}</div><div class="wl">${d.getDate()}</div></div>`}wh+='</div>';breakdownEl.innerHTML=wh+breakdownEl.innerHTML}
 
-  // Overtime (weekly)
-  const otRow = document.getElementById('overtimeRow');
-  if (currentPeriod === 'week') {
-    const ot = Math.max(0, summary.hours - state.settings.otThreshold);
-    otRow.style.display = ot > 0 ? 'flex' : 'none';
-    document.getElementById('summaryOT').textContent = ot.toFixed(1);
-    // Adjust earnings for OT
-    if (ot > 0) {
-      // Find highest-rate job for OT calc
-      const maxRate = Math.max(...state.jobs.map(j => j.rate || 0), 0);
-      const otBonus = ot * maxRate * (state.settings.otMultiplier - 1);
-      document.getElementById('summaryEarnings').textContent = formatMoney(summary.earnings + otBonus);
-    }
-  } else {
-    otRow.style.display = 'none';
-  }
-
-  // Job Breakdown
-  const breakdownEl = document.getElementById('breakdownSection');
-  const jobKeys = Object.keys(summary.byJob);
-  if (jobKeys.length > 0 && summary.hours > 0) {
-    let html = '<div class="card"><div class="card-title">Breakdown by Job</div>';
-    jobKeys.forEach(jid => {
-      const j = summary.byJob[jid];
-      const pct = summary.hours > 0 ? (j.hours / summary.hours * 100) : 0;
-      html += `<div class="breakdown-item">
-        <div class="breakdown-label"><span>${j.name}</span><span>${j.hours.toFixed(1)}h · ${formatMoney(j.earnings)}</span></div>
-        <div class="breakdown-bar"><div class="breakdown-fill" style="width:${pct}%;background:${j.color}"></div></div>
-      </div>`;
-    });
-    html += '</div>';
-    breakdownEl.innerHTML = html;
-  } else {
-    breakdownEl.innerHTML = '';
-  }
-
-  // Week day-by-day mini view
-  if (currentPeriod === 'week') {
-    const days = ['S','M','T','W','T','F','S'];
-    const ws = state.settings.weekStart;
-    const reordered = [...days.slice(ws), ...days.slice(0, ws)];
-    let weekHtml = '<div class="week-summary">';
-    for (let i = 0; i < 7; i++) {
-      const d = new Date(parseDate(startStr));
-      d.setDate(d.getDate() + i);
-      const ds = toDateStr(d);
-      const dayShifts = state.shifts.filter(s => s.date === ds);
-      let dh = 0;
-      dayShifts.forEach(s => dh += calcHours(s.start, s.end, s.breakMin));
-      weekHtml += `<div class="week-day"><div class="wl">${reordered[i]}</div><div class="wh" style="color:${dh > 0 ? 'var(--green)' : 'var(--muted)'}">${dh > 0 ? dh.toFixed(1) : '-'}</div><div class="wl">${d.getDate()}</div></div>`;
-    }
-    weekHtml += '</div>';
-    breakdownEl.innerHTML = weekHtml + breakdownEl.innerHTML;
-  }
-
-  // Shift List
-  const listEl = document.getElementById('shiftsList');
-  const sorted = [...shifts].sort((a,b) => {
-    if (a.date !== b.date) return a.date > b.date ? -1 : 1;
-    return a.start > b.start ? -1 : 1;
-  });
-
-  if (sorted.length === 0) {
-    listEl.innerHTML = '<div class="empty-state"><p>No shifts for this period</p></div>';
-  } else {
-    listEl.innerHTML = sorted.map(s => {
-      const job = getJobById(s.jobId);
-      const h = calcHours(s.start, s.end, s.breakMin);
-      const pay = h * (job ? job.rate : 0);
-      return `<div class="shift-item" style="border-left-color:${job ? job.color : '#666'}" onclick="openEditShift('${s.id}')">
-        <div>
-          <div class="shift-day">${formatDate(s.date)}</div>
-          <div class="shift-time">${s.start} – ${s.end}</div>
-          <div class="shift-job">${job ? job.name : 'Unknown'}</div>
-        </div>
-        <div class="shift-right">
-          <div class="shift-hours">${h.toFixed(1)}h</div>
-          <div class="shift-pay">${formatMoney(pay)}</div>
-        </div>
-      </div>`;
-    }).join('');
-  }
+  const listEl=document.getElementById('shiftsList');const sorted=[...shifts].sort((a,b)=>{if(a.date!==b.date)return a.date>b.date?-1:1;return a.start>b.start?-1:1});
+  if(sorted.length===0){listEl.innerHTML='<div class="empty-state"><p>No shifts for this period</p></div>'}
+  else{listEl.innerHTML=sorted.map(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);return`<div class="shift-item" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-day">${formatDate(s.date)}</div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay">${formatMoney(pay)}</div></div></div>`}).join('')}
 }
 
 // ─── CALENDAR ───
-function navCalMonth(dir) {
-  calMonth += dir;
-  if (calMonth > 11) { calMonth = 0; calYear++; }
-  if (calMonth < 0) { calMonth = 11; calYear--; }
-  renderCalendar();
+function navCalMonth(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++}if(calMonth<0){calMonth=11;calYear--}renderCalendar()}
+function renderCalendar(){
+  document.getElementById('calMonthLabel').textContent=new Date(calYear,calMonth).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const ws=state.settings.weekStart;const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];const reordered=[...dayNames.slice(ws),...dayNames.slice(0,ws)];
+  const firstDay=new Date(calYear,calMonth,1);const lastDay=new Date(calYear,calMonth+1,0);const startDow=(firstDay.getDay()-ws+7)%7;const todayStr=toDateStr(new Date());const shiftDates=new Set(state.shifts.map(s=>s.date));
+  let html=reordered.map(d=>`<div class="day-header">${d.substring(0,2)}</div>`).join('');
+  const prevLast=new Date(calYear,calMonth,0);for(let i=startDow-1;i>=0;i--){const day=prevLast.getDate()-i;const ds=toDateStr(new Date(calYear,calMonth-1,day));html+=`<div class="day-cell other-month${shiftDates.has(ds)?' has-shift':''}" onclick="selectCalDay('${ds}')">${day}</div>`}
+  for(let d=1;d<=lastDay.getDate();d++){const ds=toDateStr(new Date(calYear,calMonth,d));html+=`<div class="day-cell${ds===todayStr?' today':''}${ds===selectedCalDate?' selected':''}${shiftDates.has(ds)?' has-shift':''}" onclick="selectCalDay('${ds}')">${d}</div>`}
+  const totalCells=startDow+lastDay.getDate();const remaining=(7-totalCells%7)%7;for(let d=1;d<=remaining;d++){const ds=toDateStr(new Date(calYear,calMonth+1,d));html+=`<div class="day-cell other-month${shiftDates.has(ds)?' has-shift':''}" onclick="selectCalDay('${ds}')">${d}</div>`}
+  document.getElementById('calGrid').innerHTML=html;renderCalDayShifts()
 }
-
-function renderCalendar() {
-  document.getElementById('calMonthLabel').textContent =
-    new Date(calYear, calMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-
-  const ws = state.settings.weekStart;
-  const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const reordered = [...dayNames.slice(ws), ...dayNames.slice(0, ws)];
-
-  const firstDay = new Date(calYear, calMonth, 1);
-  const lastDay = new Date(calYear, calMonth + 1, 0);
-  const startDow = (firstDay.getDay() - ws + 7) % 7;
-  const todayStr = toDateStr(new Date());
-
-  const shiftDates = new Set(state.shifts.map(s => s.date));
-
-  let html = reordered.map(d => `<div class="day-header">${d.substring(0,2)}</div>`).join('');
-
-  // Previous month fill
-  const prevLast = new Date(calYear, calMonth, 0);
-  for (let i = startDow - 1; i >= 0; i--) {
-    const day = prevLast.getDate() - i;
-    const ds = toDateStr(new Date(calYear, calMonth - 1, day));
-    html += `<div class="day-cell other-month${shiftDates.has(ds) ? ' has-shift' : ''}" onclick="selectCalDay('${ds}')">${day}</div>`;
-  }
-
-  // Current month
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    const ds = toDateStr(new Date(calYear, calMonth, d));
-    const isToday = ds === todayStr;
-    const isSel = ds === selectedCalDate;
-    html += `<div class="day-cell${isToday ? ' today' : ''}${isSel ? ' selected' : ''}${shiftDates.has(ds) ? ' has-shift' : ''}" onclick="selectCalDay('${ds}')">${d}</div>`;
-  }
-
-  // Next month fill
-  const totalCells = startDow + lastDay.getDate();
-  const remaining = (7 - totalCells % 7) % 7;
-  for (let d = 1; d <= remaining; d++) {
-    const ds = toDateStr(new Date(calYear, calMonth + 1, d));
-    html += `<div class="day-cell other-month${shiftDates.has(ds) ? ' has-shift' : ''}" onclick="selectCalDay('${ds}')">${d}</div>`;
-  }
-
-  document.getElementById('calGrid').innerHTML = html;
-  renderCalDayShifts();
-}
-
-function selectCalDay(ds) {
-  selectedCalDate = ds;
-  renderCalendar();
-}
-
-function renderCalDayShifts() {
-  document.getElementById('calDayTitle').textContent = formatDate(selectedCalDate);
-  const dayShifts = state.shifts.filter(s => s.date === selectedCalDate);
-  const el = document.getElementById('calDayShifts');
-
-  if (dayShifts.length === 0) {
-    el.innerHTML = '<div class="empty-state" style="padding:20px"><p>No shifts</p></div>';
-    return;
-  }
-
-  el.innerHTML = dayShifts.map(s => {
-    const job = getJobById(s.jobId);
-    const h = calcHours(s.start, s.end, s.breakMin);
-    const pay = h * (job ? job.rate : 0);
-    return `<div class="shift-item" style="border-left-color:${job ? job.color : '#666'}" onclick="openEditShift('${s.id}')">
-      <div>
-        <div class="shift-time">${s.start} – ${s.end}</div>
-        <div class="shift-job">${job ? job.name : 'Unknown'}${s.notes ? ' · ' + s.notes : ''}</div>
-      </div>
-      <div class="shift-right">
-        <div class="shift-hours">${h.toFixed(1)}h</div>
-        <div class="shift-pay">${formatMoney(pay)}</div>
-      </div>
-    </div>`;
-  }).join('');
+function selectCalDay(ds){selectedCalDate=ds;renderCalendar()}
+function renderCalDayShifts(){
+  document.getElementById('calDayTitle').textContent=formatDate(selectedCalDate);const dayShifts=state.shifts.filter(s=>s.date===selectedCalDate);const el=document.getElementById('calDayShifts');
+  if(dayShifts.length===0){el.innerHTML='<div class="empty-state" style="padding:20px"><p>No shifts</p></div>';return}
+  el.innerHTML=dayShifts.map(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);return`<div class="shift-item" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}${s.notes?' · '+s.notes:''}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay">${formatMoney(pay)}</div></div></div>`}).join('')
 }
 
 // ─── JOBS ───
-function renderJobs() {
-  const el = document.getElementById('jobsList');
-  if (state.jobs.length === 0) {
-    el.innerHTML = '<div class="empty-state"><p>No jobs yet. Add your first job to get started.</p></div>';
-    return;
-  }
-  el.innerHTML = state.jobs.map(j => {
-    const jobShifts = state.shifts.filter(s => s.jobId === j.id);
-    const totalH = jobShifts.reduce((sum, s) => sum + calcHours(s.start, s.end, s.breakMin), 0);
-    return `<div class="card" onclick="openEditJob('${j.id}')" style="cursor:pointer;border-left:3px solid ${j.color}">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div style="font-weight:600;font-size:16px">${j.name}</div>
-          <div style="color:var(--muted);font-size:13px;margin-top:4px">${formatMoney(j.rate)}/hr · ${j.type === 'rotating' ? 'Rotating' : j.type === 'prn' ? 'PRN' : 'Fixed'}</div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-size:14px;font-weight:600">${totalH.toFixed(1)}h</div>
-          <div style="color:var(--green);font-size:13px">${formatMoney(totalH * j.rate)}</div>
-          <div style="color:var(--muted);font-size:11px">all time</div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+function renderJobs(){
+  const el=document.getElementById('jobsList');
+  if(state.jobs.length===0){el.innerHTML='<div class="empty-state"><p>No jobs yet. Add your first job to get started.</p></div>';return}
+  el.innerHTML=state.jobs.map(j=>{const jobShifts=state.shifts.filter(s=>s.jobId===j.id);const totalH=jobShifts.reduce((sum,s)=>sum+calcHours(s.start,s.end,s.breakMin),0);return`<div class="card" onclick="openEditJob('${j.id}')" style="cursor:pointer;border-left:3px solid ${j.color}"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:16px">${j.name}</div><div style="color:var(--muted);font-size:13px;margin-top:4px">${formatMoney(j.rate)}/hr · ${j.type==='rotating'?'Rotating':j.type==='prn'?'PRN':'Fixed'}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600">${totalH.toFixed(1)}h</div><div style="color:var(--green);font-size:13px">${formatMoney(totalH*j.rate)}</div><div style="color:var(--muted);font-size:11px">all time</div></div></div></div>`}).join('')
 }
 
 // ─── MODALS ───
-function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-
-// Shift modal
-function openAddShift() {
-  editingShiftId = null;
-  document.getElementById('shiftModalTitle').textContent = 'Add Shift';
-  document.getElementById('deleteShiftBtn').style.display = 'none';
-  populateJobSelect();
-  document.getElementById('shiftDate').value = selectedCalDate || toDateStr(new Date());
-  document.getElementById('shiftStart').value = '';
-  document.getElementById('shiftEnd').value = '';
-  document.getElementById('shiftBreak').value = '0';
-  document.getElementById('shiftNotes').value = '';
-  openModal('shiftModal');
-}
-
-function openEditShift(id) {
-  const s = state.shifts.find(x => x.id === id);
-  if (!s) return;
-  editingShiftId = id;
-  document.getElementById('shiftModalTitle').textContent = 'Edit Shift';
-  document.getElementById('deleteShiftBtn').style.display = 'block';
-  populateJobSelect();
-  document.getElementById('shiftJob').value = s.jobId;
-  document.getElementById('shiftDate').value = s.date;
-  document.getElementById('shiftStart').value = s.start;
-  document.getElementById('shiftEnd').value = s.end;
-  document.getElementById('shiftBreak').value = s.breakMin || 0;
-  document.getElementById('shiftNotes').value = s.notes || '';
-  openModal('shiftModal');
-}
-
-function populateJobSelect() {
-  const sel = document.getElementById('shiftJob');
-  sel.innerHTML = state.jobs.map(j => `<option value="${j.id}">${j.name}</option>`).join('');
-  if (state.jobs.length === 0) sel.innerHTML = '<option value="">No jobs – add one first</option>';
-}
-
-function saveShift() {
-  const jobId = document.getElementById('shiftJob').value;
-  if (!jobId) { alert('Add a job first!'); return; }
-  const date = document.getElementById('shiftDate').value;
-  const start = document.getElementById('shiftStart').value;
-  const end = document.getElementById('shiftEnd').value;
-  if (!date || !start || !end) { alert('Fill in date, start and end time'); return; }
-
-  const shift = {
-    id: editingShiftId || uid(),
-    jobId, date, start, end,
-    breakMin: parseInt(document.getElementById('shiftBreak').value) || 0,
-    notes: document.getElementById('shiftNotes').value.trim()
-  };
-
-  if (editingShiftId) {
-    const idx = state.shifts.findIndex(s => s.id === editingShiftId);
-    if (idx >= 0) state.shifts[idx] = shift;
-  } else {
-    state.shifts.push(shift);
-  }
-
-  save();
-  closeModal('shiftModal');
-  renderDashboard();
-  renderCalendar();
-}
-
-function deleteShift() {
-  if (!editingShiftId) return;
-  if (!confirm('Delete this shift?')) return;
-  state.shifts = state.shifts.filter(s => s.id !== editingShiftId);
-  save();
-  closeModal('shiftModal');
-  renderDashboard();
-  renderCalendar();
-}
-
-// Job modal
-function openAddJob() {
-  editingJobId = null;
-  document.getElementById('jobModalTitle').textContent = 'Add Job';
-  document.getElementById('deleteJobBtn').style.display = 'none';
-  document.getElementById('jobName').value = '';
-  document.getElementById('jobRate').value = '';
-  document.getElementById('jobColor').value = '#6c5ce7';
-  document.getElementById('jobType').value = 'rotating';
-  openModal('jobModal');
-}
-
-function openEditJob(id) {
-  const j = state.jobs.find(x => x.id === id);
-  if (!j) return;
-  editingJobId = id;
-  document.getElementById('jobModalTitle').textContent = 'Edit Job';
-  document.getElementById('deleteJobBtn').style.display = 'block';
-  document.getElementById('jobName').value = j.name;
-  document.getElementById('jobRate').value = j.rate;
-  document.getElementById('jobColor').value = j.color;
-  document.getElementById('jobType').value = j.type;
-  openModal('jobModal');
-}
-
-function saveJob() {
-  const name = document.getElementById('jobName').value.trim();
-  const rate = parseFloat(document.getElementById('jobRate').value);
-  if (!name || isNaN(rate)) { alert('Enter job name and rate'); return; }
-
-  const job = {
-    id: editingJobId || uid(),
-    name,
-    rate,
-    color: document.getElementById('jobColor').value,
-    type: document.getElementById('jobType').value
-  };
-
-  if (editingJobId) {
-    const idx = state.jobs.findIndex(j => j.id === editingJobId);
-    if (idx >= 0) state.jobs[idx] = job;
-  } else {
-    state.jobs.push(job);
-  }
-
-  save();
-  closeModal('jobModal');
-  renderJobs();
-}
-
-function deleteJob() {
-  if (!editingJobId) return;
-  if (!confirm('Delete this job and all its shifts?')) return;
-  state.shifts = state.shifts.filter(s => s.jobId !== editingJobId);
-  state.jobs = state.jobs.filter(j => j.id !== editingJobId);
-  save();
-  closeModal('jobModal');
-  renderJobs();
-  renderDashboard();
-}
+function openModal(id){document.getElementById(id).classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function openAddShift(){editingShiftId=null;document.getElementById('shiftModalTitle').textContent='Add Shift';document.getElementById('deleteShiftBtn').style.display='none';populateJobSelect();document.getElementById('shiftDate').value=selectedCalDate||toDateStr(new Date());document.getElementById('shiftStart').value='';document.getElementById('shiftEnd').value='';document.getElementById('shiftBreak').value='0';document.getElementById('shiftNotes').value='';openModal('shiftModal')}
+function openEditShift(id){const s=state.shifts.find(x=>x.id===id);if(!s)return;editingShiftId=id;document.getElementById('shiftModalTitle').textContent='Edit Shift';document.getElementById('deleteShiftBtn').style.display='block';populateJobSelect();document.getElementById('shiftJob').value=s.jobId;document.getElementById('shiftDate').value=s.date;document.getElementById('shiftStart').value=s.start;document.getElementById('shiftEnd').value=s.end;document.getElementById('shiftBreak').value=s.breakMin||0;document.getElementById('shiftNotes').value=s.notes||'';openModal('shiftModal')}
+function populateJobSelect(){const sel=document.getElementById('shiftJob');sel.innerHTML=state.jobs.map(j=>`<option value="${j.id}">${j.name}</option>`).join('');if(state.jobs.length===0)sel.innerHTML='<option value="">No jobs – add one first</option>'}
+function saveShift(){const jobId=document.getElementById('shiftJob').value;if(!jobId){alert('Add a job first!');return}const date=document.getElementById('shiftDate').value;const start=document.getElementById('shiftStart').value;const end=document.getElementById('shiftEnd').value;if(!date||!start||!end){alert('Fill in date, start and end time');return}const shift={id:editingShiftId||uid(),jobId,date,start,end,breakMin:parseInt(document.getElementById('shiftBreak').value)||0,notes:document.getElementById('shiftNotes').value.trim()};if(editingShiftId){const idx=state.shifts.findIndex(s=>s.id===editingShiftId);if(idx>=0)state.shifts[idx]=shift}else{state.shifts.push(shift)}save();closeModal('shiftModal');renderDashboard();if(document.getElementById('screen-calendar').classList.contains('active'))renderCalendar()}
+function deleteShift(){if(!editingShiftId)return;if(!confirm('Delete this shift?'))return;state.shifts=state.shifts.filter(s=>s.id!==editingShiftId);save();closeModal('shiftModal');renderDashboard();if(document.getElementById('screen-calendar').classList.contains('active'))renderCalendar()}
+function openAddJob(){editingJobId=null;document.getElementById('jobModalTitle').textContent='Add Job';document.getElementById('deleteJobBtn').style.display='none';document.getElementById('jobName').value='';document.getElementById('jobRate').value='';document.getElementById('jobColor').value='#6c5ce7';document.getElementById('jobType').value='rotating';openModal('jobModal')}
+function openEditJob(id){const j=state.jobs.find(x=>x.id===id);if(!j)return;editingJobId=id;document.getElementById('jobModalTitle').textContent='Edit Job';document.getElementById('deleteJobBtn').style.display='block';document.getElementById('jobName').value=j.name;document.getElementById('jobRate').value=j.rate;document.getElementById('jobColor').value=j.color;document.getElementById('jobType').value=j.type;openModal('jobModal')}
+function saveJob(){const name=document.getElementById('jobName').value.trim();const rate=parseFloat(document.getElementById('jobRate').value);if(!name||isNaN(rate)){alert('Enter job name and rate');return}const job={id:editingJobId||uid(),name,rate,color:document.getElementById('jobColor').value,type:document.getElementById('jobType').value};if(editingJobId){const idx=state.jobs.findIndex(j=>j.id===editingJobId);if(idx>=0)state.jobs[idx]=job}else{state.jobs.push(job)}save();closeModal('jobModal');renderJobs()}
+function deleteJob(){if(!editingJobId)return;if(!confirm('Delete this job and all its shifts?'))return;state.shifts=state.shifts.filter(s=>s.jobId!==editingJobId);state.jobs=state.jobs.filter(j=>j.id!==editingJobId);save();closeModal('jobModal');renderJobs();renderDashboard()}
 
 // ─── SETTINGS ───
-function saveSettings() {
-  state.settings.otThreshold = parseFloat(document.getElementById('otThreshold').value) || 40;
-  state.settings.otMultiplier = parseFloat(document.getElementById('otMultiplier').value) || 1.5;
-  state.settings.weekStart = parseInt(document.getElementById('weekStart').value) || 0;
-  save();
-}
+function saveSettings(){state.settings.otThreshold=parseFloat(document.getElementById('otThreshold').value)||40;state.settings.otMultiplier=parseFloat(document.getElementById('otMultiplier').value)||1.5;state.settings.weekStart=parseInt(document.getElementById('weekStart').value)||0;save()}
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='shifttrack-backup-'+toDateStr(new Date())+'.json';a.click()}
 
-function exportData() {
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'shifttrack-backup-' + toDateStr(new Date()) + '.json';
-  a.click();
-}
-
-// ─── INIT ───
-load();
-renderDashboard();
-
-// Close modals on overlay click
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeModal(overlay.id);
-  });
-});
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)closeModal(o.id)})});
 </script>
 </body>
 </html>
