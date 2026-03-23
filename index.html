@@ -16,7 +16,6 @@
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-tap-highlight-color:transparent}
 
-/* ─── LOCK SCREEN ─── */
 #lockScreen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 #lockScreen.hidden{display:none}
 .lock-icon{width:60px;height:60px;background:var(--accent);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
@@ -34,24 +33,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .lock-error{color:var(--red);font-size:13px;height:20px;margin-bottom:10px}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}}
 
-/* ─── APP ─── */
 #app{display:none}
 #app.unlocked{display:block;padding-bottom:80px}
 .container{max-width:500px;margin:0 auto;padding:16px}
 .header{display:flex;align-items:center;justify-content:space-between;padding:12px 0;margin-bottom:8px}
 .header h1{font-size:20px;font-weight:700;letter-spacing:-0.5px}
 .header-icon{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:none;justify-content:space-around;padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:100}
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:none;justify-content:space-around;padding:6px 0 max(6px,env(safe-area-inset-bottom));z-index:100}
 .nav.show{display:flex}
-.nav-btn{background:none;border:none;color:var(--muted);font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 12px;cursor:pointer;transition:.2s}
+.nav-btn{background:none;border:none;color:var(--muted);font-size:9px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 8px;cursor:pointer;transition:.2s}
 .nav-btn.active{color:var(--accent2)}
-.nav-btn svg{width:22px;height:22px}
+.nav-btn svg{width:20px;height:20px}
 .card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--border)}
 .card-title{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;font-weight:600}
 .stat-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0}
 .stat-label{color:var(--muted);font-size:14px}
 .stat-value{font-size:16px;font-weight:600}
-.stat-value.earnings{color:var(--green)}
 .stat-big{font-size:28px;font-weight:700}
 .period-tabs{display:flex;gap:6px;margin-bottom:16px}
 .period-tab{flex:1;padding:8px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
@@ -66,6 +63,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .shift-hours{font-size:14px;font-weight:600}
 .shift-pay{font-size:12px;color:var(--green)}
 .shift-job{font-size:11px;color:var(--muted);margin-top:2px}
+.shift-future{opacity:0.5}
+.shift-future .shift-pay{color:var(--muted)}
 .form-group{margin-bottom:14px}
 .form-group label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:500}
 .form-group input,.form-group select{width:100%;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:15px;outline:none}
@@ -99,6 +98,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .modal{background:var(--bg);border-radius:16px 16px 0 0;padding:24px 20px max(20px,env(safe-area-inset-bottom));width:100%;max-width:500px;max-height:85vh;overflow-y:auto}
 .modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px}
 .modal h2{font-size:18px;margin-bottom:16px}
+
+/* Tax styles */
+.tax-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.tax-row:last-child{border-bottom:none}
+.tax-row .t-label{font-size:14px;color:var(--text)}
+.tax-row .t-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.tax-row .t-val{font-size:15px;font-weight:600;color:var(--red);text-align:right}
+.tax-row .t-val.positive{color:var(--green)}
+.tax-total{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:2px solid var(--accent);margin-top:4px}
+.tax-total .t-label{font-size:16px;font-weight:700}
+.tax-total .t-val{font-size:18px;font-weight:700}
+
+/* YTD styles */
+.ytd-month{padding:10px 0;border-bottom:1px solid var(--border)}
+.ytd-month:last-child{border-bottom:none}
+.ytd-month-header{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:4px}
+.ytd-month-detail{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.ytd-bar{height:6px;background:var(--surface);border-radius:3px;margin-top:6px;overflow:hidden}
+.ytd-bar-fill{height:100%;border-radius:3px;background:var(--green)}
+
+.badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;margin-left:6px;vertical-align:middle}
+.badge-future{background:var(--orange);color:#000}
+.badge-earned{background:var(--green);color:#000}
 </style>
 </head>
 <body>
@@ -108,32 +130,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="lock-icon">🔒</div>
   <div class="lock-title">ShiftTrack</div>
   <div class="lock-sub">Enter your passcode</div>
-  <div class="pin-dots" id="pinDots">
-    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
-  </div>
+  <div class="pin-dots"><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div></div>
   <div class="lock-error" id="lockError"></div>
   <div class="numpad">
-    <button onclick="pinPress('1')">1</button>
-    <button onclick="pinPress('2')">2</button>
-    <button onclick="pinPress('3')">3</button>
-    <button onclick="pinPress('4')">4</button>
-    <button onclick="pinPress('5')">5</button>
-    <button onclick="pinPress('6')">6</button>
-    <button onclick="pinPress('7')">7</button>
-    <button onclick="pinPress('8')">8</button>
-    <button onclick="pinPress('9')">9</button>
-    <button class="fn"></button>
-    <button onclick="pinPress('0')">0</button>
-    <button class="fn" onclick="pinDelete()">⌫</button>
+    <button onclick="pinPress('1')">1</button><button onclick="pinPress('2')">2</button><button onclick="pinPress('3')">3</button>
+    <button onclick="pinPress('4')">4</button><button onclick="pinPress('5')">5</button><button onclick="pinPress('6')">6</button>
+    <button onclick="pinPress('7')">7</button><button onclick="pinPress('8')">8</button><button onclick="pinPress('9')">9</button>
+    <button class="fn"></button><button onclick="pinPress('0')">0</button><button class="fn" onclick="pinDelete()">⌫</button>
   </div>
 </div>
 
 <!-- MAIN APP -->
 <div id="app">
 <div class="container">
+
+  <!-- DASHBOARD -->
   <div id="screen-dashboard" class="screen active">
     <div class="header"><h1>ShiftTrack</h1><div class="header-icon">⏱</div></div>
-    <div class="period-tabs" id="periodTabs">
+    <div class="period-tabs">
       <div class="period-tab active" data-period="day">Day</div>
       <div class="period-tab" data-period="week">Week</div>
       <div class="period-tab" data-period="month">Month</div>
@@ -147,15 +161,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <div class="card-title" id="summaryTitle">Today's Summary</div>
       <div style="display:flex;gap:16px;margin-bottom:8px">
         <div style="flex:1"><div class="stat-label">Hours</div><div class="stat-big" id="summaryHours">0</div></div>
-        <div style="flex:1"><div class="stat-label">Earnings</div><div class="stat-big earnings" id="summaryEarnings">$0</div></div>
+        <div style="flex:1"><div class="stat-label">Earned</div><div class="stat-big" style="color:var(--green)" id="summaryEarnings">$0</div></div>
       </div>
-      <div class="stat-row"><span class="stat-label">Shifts</span><span class="stat-value" id="summaryShifts">0</span></div>
+      <div class="stat-row"><span class="stat-label">Worked shifts</span><span class="stat-value" id="summaryShifts">0</span></div>
+      <div class="stat-row" id="scheduledRow" style="display:none"><span class="stat-label">Scheduled (future)</span><span class="stat-value" style="color:var(--orange)" id="summaryScheduled">0</span></div>
       <div class="stat-row" id="overtimeRow" style="display:none"><span class="stat-label">Overtime hours</span><span class="stat-value" style="color:var(--orange)" id="summaryOT">0</span></div>
     </div>
     <div id="breakdownSection"></div>
     <div id="shiftsListSection"><div class="card-title" style="margin-bottom:10px">SHIFTS</div><div id="shiftsList"></div></div>
   </div>
 
+  <!-- CALENDAR -->
   <div id="screen-calendar" class="screen">
     <div class="header"><h1>Calendar</h1><button onclick="openAddShift()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">+ Add</button></div>
     <div class="date-nav"><button onclick="navCalMonth(-1)">‹</button><span class="date-label" id="calMonthLabel"></span><button onclick="navCalMonth(1)">›</button></div>
@@ -163,11 +179,83 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div style="margin-top:12px"><div class="card-title" id="calDayTitle">Selected Day</div><div id="calDayShifts"></div></div>
   </div>
 
+  <!-- TAX -->
+  <div id="screen-tax" class="screen">
+    <div class="header"><h1>Taxes & YTD</h1></div>
+    <div class="period-tabs">
+      <div class="period-tab active tax-sub-tab" data-subtab="ytd">YTD</div>
+      <div class="period-tab tax-sub-tab" data-subtab="taxes">Tax Est.</div>
+    </div>
+
+    <!-- YTD Sub-tab -->
+    <div id="subtab-ytd">
+      <div class="card">
+        <div class="card-title">Year-to-Date Earnings (Worked Only)</div>
+        <div style="display:flex;gap:16px;margin-bottom:12px">
+          <div style="flex:1"><div class="stat-label">YTD Gross</div><div class="stat-big" style="color:var(--green)" id="ytdGross">$0</div></div>
+          <div style="flex:1"><div class="stat-label">YTD Hours</div><div class="stat-big" id="ytdHours">0</div></div>
+        </div>
+        <div class="stat-row"><span class="stat-label">YTD Take-Home (est.)</span><span class="stat-value" style="color:var(--green)" id="ytdNet">$0</span></div>
+        <div class="stat-row"><span class="stat-label">YTD Taxes Owed (est.)</span><span class="stat-value" style="color:var(--red)" id="ytdTaxTotal">$0</span></div>
+        <div class="stat-row"><span class="stat-label">Effective Tax Rate</span><span class="stat-value" id="ytdEffRate">0%</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Monthly Breakdown</div>
+        <div id="ytdMonthly"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">By Job</div>
+        <div id="ytdByJob"></div>
+      </div>
+    </div>
+
+    <!-- Tax Sub-tab -->
+    <div id="subtab-taxes" style="display:none">
+      <div class="card">
+        <div class="card-title">Projected Annual Income</div>
+        <div class="stat-row"><span class="stat-label">Based on YTD pace</span><span class="stat-value" style="color:var(--green)" id="projectedIncome">$0</span></div>
+        <div class="stat-row"><span class="stat-label">W-2 portion</span><span class="stat-value" id="projW2">$0</span></div>
+        <div class="stat-row"><span class="stat-label">1099 / Contractor portion</span><span class="stat-value" id="proj1099">$0</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Federal Income Tax</div>
+        <div id="fedTaxBreakdown"></div>
+        <div class="tax-total"><span class="t-label">Federal Total</span><span class="t-val" style="color:var(--red)" id="fedTaxTotal">$0</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">FICA (Social Security & Medicare)</div>
+        <div id="ficaBreakdown"></div>
+        <div class="tax-total"><span class="t-label">FICA Total</span><span class="t-val" style="color:var(--red)" id="ficaTotal">$0</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">PA State & Local</div>
+        <div id="stateTaxBreakdown"></div>
+        <div class="tax-total"><span class="t-label">State & Local Total</span><span class="t-val" style="color:var(--red)" id="stateTaxTotal">$0</span></div>
+      </div>
+      <div class="card" style="border-color:var(--red)">
+        <div class="card-title" style="color:var(--red)">Total Estimated Tax Liability</div>
+        <div style="display:flex;gap:16px">
+          <div style="flex:1"><div class="stat-label">Annual</div><div class="stat-big" style="color:var(--red)" id="totalTaxAnnual">$0</div></div>
+          <div style="flex:1"><div class="stat-label">Per Paycheck Avg</div><div class="stat-big" style="color:var(--red)" id="totalTaxPer">$0</div></div>
+        </div>
+        <div class="stat-row" style="margin-top:8px"><span class="stat-label">Effective Rate</span><span class="stat-value" style="color:var(--red)" id="taxEffRate">0%</span></div>
+        <div class="stat-row"><span class="stat-label">Est. Annual Take-Home</span><span class="stat-value" style="color:var(--green)" id="taxTakeHome">$0</span></div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;color:var(--muted);line-height:1.5">
+          ⚠️ Estimates based on 2025 tax brackets, filing single. Rates: Federal marginal brackets, PA flat 3.07%, Camp Hill local ~1.05%, SE tax 15.3% on contractor income. Estimates lean conservative (higher) to avoid surprises. Not tax advice — consult a CPA for your actual liability.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOBS -->
   <div id="screen-jobs" class="screen">
     <div class="header"><h1>Jobs</h1><button onclick="openAddJob()" style="background:var(--accent);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">+ Add</button></div>
     <div id="jobsList"></div>
   </div>
 
+  <!-- SETTINGS -->
   <div id="screen-settings" class="screen">
     <div class="header"><h1>Settings</h1></div>
     <div class="card">
@@ -188,11 +276,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div>
 </div>
 
+<!-- NAV -->
 <nav class="nav" id="mainNav">
-  <button class="nav-btn active" data-screen="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>Home</button>
-  <button class="nav-btn" data-screen="calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Calendar</button>
-  <button class="nav-btn" data-screen="jobs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>Jobs</button>
-  <button class="nav-btn" data-screen="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</button>
+  <button class="nav-btn active" data-screen="dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>Home
+  </button>
+  <button class="nav-btn" data-screen="calendar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Cal
+  </button>
+  <button class="nav-btn" data-screen="tax">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Tax
+  </button>
+  <button class="nav-btn" data-screen="jobs">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>Jobs
+  </button>
+  <button class="nav-btn" data-screen="settings">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>More
+  </button>
 </nav>
 
 <!-- Modals -->
@@ -214,7 +314,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="form-group"><label>Job Name</label><input type="text" id="jobName" placeholder="e.g. Hospital, Retail"></div>
   <div class="form-group"><label>Hourly Rate ($)</label><input type="number" step="0.01" id="jobRate" placeholder="15.00"></div>
   <div class="form-group"><label>Color</label><select id="jobColor"><option value="#6c5ce7">Purple</option><option value="#74b9ff">Blue</option><option value="#00b894">Green</option><option value="#fdcb6e">Yellow</option><option value="#e17055">Orange</option><option value="#fd79a8">Pink</option></select></div>
-  <div class="form-group"><label>Type</label><select id="jobType"><option value="rotating">Rotating Schedule (2-week block)</option><option value="prn">PRN / As Needed</option><option value="fixed">Fixed Weekly</option></select></div>
+  <div class="form-group"><label>Type</label><select id="jobType">
+    <option value="rotating">Rotating Schedule (W-2)</option>
+    <option value="prn">PRN / As Needed (W-2)</option>
+    <option value="fixed">Fixed Weekly (W-2)</option>
+    <option value="contractor">1099 / Contractor</option>
+  </select></div>
   <button class="btn btn-primary" onclick="saveJob()">Save Job</button>
   <button class="btn btn-danger" id="deleteJobBtn" style="display:none" onclick="deleteJob()">Delete Job</button>
   <button class="btn btn-secondary" style="margin-top:8px" onclick="closeModal('jobModal')">Cancel</button>
@@ -224,28 +329,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 // ─── PASSCODE ───
 const CORRECT_PIN='9594';
 let pinEntry='',pinLocked=false;
-
-function pinPress(n){
-  if(pinLocked)return;
-  pinEntry+=n;updateDots();
-  if(pinEntry.length===4){
-    if(pinEntry===CORRECT_PIN){unlock()}
-    else{
-      pinLocked=true;
-      document.getElementById('lockError').textContent='Incorrect passcode';
-      document.querySelectorAll('.pin-dot').forEach(d=>d.classList.add('error'));
-      setTimeout(()=>{pinEntry='';pinLocked=false;document.getElementById('lockError').textContent='';updateDots();document.querySelectorAll('.pin-dot').forEach(d=>d.classList.remove('error'))},800);
-    }
-  }
-}
+function pinPress(n){if(pinLocked)return;pinEntry+=n;updateDots();if(pinEntry.length===4){if(pinEntry===CORRECT_PIN){unlock()}else{pinLocked=true;document.getElementById('lockError').textContent='Incorrect passcode';document.querySelectorAll('.pin-dot').forEach(d=>d.classList.add('error'));setTimeout(()=>{pinEntry='';pinLocked=false;document.getElementById('lockError').textContent='';updateDots();document.querySelectorAll('.pin-dot').forEach(d=>d.classList.remove('error'))},800)}}}
 function pinDelete(){if(pinLocked)return;pinEntry=pinEntry.slice(0,-1);updateDots()}
 function updateDots(){document.querySelectorAll('.pin-dot').forEach((d,i)=>{d.classList.toggle('filled',i<pinEntry.length)})}
-function unlock(){
-  document.getElementById('lockScreen').classList.add('hidden');
-  document.getElementById('app').classList.add('unlocked');
-  document.getElementById('mainNav').classList.add('show');
-  load();renderDashboard();
-}
+function unlock(){document.getElementById('lockScreen').classList.add('hidden');document.getElementById('app').classList.add('unlocked');document.getElementById('mainNav').classList.add('show');load();renderDashboard()}
 
 // ─── STATE ───
 let state={jobs:[],shifts:[],settings:{otThreshold:40,otMultiplier:1.5,weekStart:0}};
@@ -259,17 +346,153 @@ function toDateStr(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart
 function parseDate(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
 function formatDate(s){return parseDate(s).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
 function formatMoney(n){return'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+function formatMoneyShort(n){return n>=1000?'$'+Math.round(n).toLocaleString():formatMoney(n)}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,5)}
-function calcHours(start,end,breakMin){const[sh,sm]=start.split(':').map(Number);const[eh,em]=end.split(':').map(Number);let mins=(eh*60+em)-(sh*60+sm);if(mins<0)mins+=24*60;mins-=(breakMin||0);return Math.max(0,mins/60)}
+function todayStr(){return toDateStr(new Date())}
+
+function calcHours(start,end,breakMin){
+  const[sh,sm]=start.split(':').map(Number);const[eh,em]=end.split(':').map(Number);
+  let mins=(eh*60+em)-(sh*60+sm);if(mins<0)mins+=24*60;mins-=(breakMin||0);return Math.max(0,mins/60);
+}
+function isPastShift(s){return s.date<=todayStr()}
 function getWeekRange(date){const d=new Date(date);const day=d.getDay();const ws=state.settings.weekStart;const diff=(day-ws+7)%7;const start=new Date(d);start.setDate(d.getDate()-diff);const end=new Date(start);end.setDate(start.getDate()+6);return{start:toDateStr(start),end:toDateStr(end)}}
 function getMonthRange(y,m){return{start:toDateStr(new Date(y,m,1)),end:toDateStr(new Date(y,m+1,0))}}
 function shiftsInRange(s,e){return state.shifts.filter(x=>x.date>=s&&x.date<=e)}
 function getJobById(id){return state.jobs.find(j=>j.id===id)}
-function computeSummary(shifts){let hours=0,earnings=0,count=shifts.length;const byJob={};shifts.forEach(s=>{const h=calcHours(s.start,s.end,s.breakMin);const job=getJobById(s.jobId);const rate=job?job.rate:0;hours+=h;earnings+=h*rate;if(!byJob[s.jobId])byJob[s.jobId]={hours:0,earnings:0,name:job?job.name:'Unknown',color:job?job.color:'#666'};byJob[s.jobId].hours+=h;byJob[s.jobId].earnings+=h*rate});return{hours,earnings,count,byJob}}
+
+function computeSummary(shifts,onlyPast){
+  let hours=0,earnings=0,futureCount=0,pastCount=0;const byJob={};
+  const today=todayStr();
+  shifts.forEach(s=>{
+    const h=calcHours(s.start,s.end,s.breakMin);const job=getJobById(s.jobId);const rate=job?job.rate:0;
+    const past=s.date<=today;
+    if(past){hours+=h;earnings+=h*rate;pastCount++}else{futureCount++}
+    if(!onlyPast||past){
+      if(!byJob[s.jobId])byJob[s.jobId]={hours:0,earnings:0,name:job?job.name:'Unknown',color:job?job.color:'#666'};
+      if(past){byJob[s.jobId].hours+=h;byJob[s.jobId].earnings+=h*rate}
+    }
+  });
+  return{hours,earnings,pastCount,futureCount,byJob};
+}
+
+// ─── TAX CALCULATIONS ───
+// 2025 Federal brackets (Single)
+const FED_BRACKETS=[
+  {min:0,max:11600,rate:0.10},
+  {min:11600,max:47150,rate:0.12},
+  {min:47150,max:100525,rate:0.22},
+  {min:100525,max:191950,rate:0.24},
+  {min:191950,max:243725,rate:0.32},
+  {min:243725,max:609350,rate:0.35},
+  {min:609350,max:Infinity,rate:0.37}
+];
+const STANDARD_DEDUCTION=14600;
+const SS_RATE=0.062;const SS_WAGE_BASE=168600;
+const MEDICARE_RATE=0.0145;const MEDICARE_SURTAX_RATE=0.009;const MEDICARE_SURTAX_THRESHOLD=200000;
+const SE_TAX_RATE=0.153; // 15.3%
+const SE_DEDUCTION_RATE=0.9235; // only 92.35% of net SE income is subject
+const PA_STATE_RATE=0.0307;
+const LOCAL_RATE=0.0105; // Camp Hill municipality + school district (conservative)
+
+function calcFederalTax(taxableIncome){
+  let tax=0;const details=[];
+  for(const b of FED_BRACKETS){
+    if(taxableIncome<=b.min)break;
+    const amt=Math.min(taxableIncome,b.max)-b.min;
+    const t=amt*b.rate;
+    tax+=t;
+    if(amt>0)details.push({bracket:`${(b.rate*100).toFixed(0)}% on ${formatMoneyShort(b.min)}–${b.max===Infinity?'+':formatMoneyShort(b.max)}`,amount:t});
+  }
+  return{total:tax,details};
+}
+
+function calcAllTaxes(annualGross,w2Gross,contractorGross){
+  const result={};
+
+  // Self-employment tax on contractor income
+  const seSubject=contractorGross*SE_DEDUCTION_RATE;
+  const seTax=seSubject*SE_TAX_RATE;
+  const seDeduction=seTax/2; // deduct half of SE tax from AGI
+  result.seTax=seTax;
+  result.seSubject=seSubject;
+
+  // AGI
+  const agi=annualGross-seDeduction;
+
+  // Federal income tax
+  const taxableIncome=Math.max(0,agi-STANDARD_DEDUCTION);
+  const fed=calcFederalTax(taxableIncome);
+  result.fedTax=fed.total;
+  result.fedDetails=fed.details;
+  result.taxableIncome=taxableIncome;
+  result.agi=agi;
+
+  // FICA - W2 portion (employer pays half, so employee pays 7.65%)
+  const w2SS=Math.min(w2Gross,SS_WAGE_BASE)*SS_RATE;
+  const w2Medicare=w2Gross*MEDICARE_RATE;
+  result.w2SS=w2SS;
+  result.w2Medicare=w2Medicare;
+
+  // FICA - contractor (self-employment tax already calculated above, covers SS+Medicare)
+  // Additional Medicare surtax
+  const totalMedicareWages=w2Gross+seSubject;
+  const surtax=Math.max(0,totalMedicareWages-MEDICARE_SURTAX_THRESHOLD)*MEDICARE_SURTAX_RATE;
+  result.medicareSurtax=surtax;
+
+  result.ficaTotal=w2SS+w2Medicare+seTax+surtax;
+
+  // PA state tax (flat rate on all earned income)
+  const paStateTax=annualGross*PA_STATE_RATE;
+  result.paStateTax=paStateTax;
+
+  // Local tax (Camp Hill)
+  const localTax=annualGross*LOCAL_RATE;
+  result.localTax=localTax;
+  result.stateLocalTotal=paStateTax+localTax;
+
+  // Grand total
+  result.grandTotal=fed.total+result.ficaTotal+paStateTax+localTax;
+  result.effectiveRate=annualGross>0?(result.grandTotal/annualGross*100):0;
+  result.takeHome=annualGross-result.grandTotal;
+
+  return result;
+}
+
+function getYTDEarnings(){
+  const today=todayStr();const year=new Date().getFullYear();
+  const yearStart=year+'-01-01';
+  const pastShifts=state.shifts.filter(s=>s.date>=yearStart&&s.date<=today);
+  let totalHours=0,totalEarnings=0,w2Earnings=0,contractorEarnings=0;
+  const byJob={},byMonth={};
+
+  pastShifts.forEach(s=>{
+    const h=calcHours(s.start,s.end,s.breakMin);
+    const job=getJobById(s.jobId);
+    const rate=job?job.rate:0;
+    const pay=h*rate;
+    const isContractor=job&&job.type==='contractor';
+
+    totalHours+=h;totalEarnings+=pay;
+    if(isContractor)contractorEarnings+=pay;else w2Earnings+=pay;
+
+    if(!byJob[s.jobId])byJob[s.jobId]={hours:0,earnings:0,name:job?job.name:'Unknown',color:job?job.color:'#666',type:job?job.type:'w2'};
+    byJob[s.jobId].hours+=h;byJob[s.jobId].earnings+=pay;
+
+    const monthKey=s.date.substring(0,7);
+    if(!byMonth[monthKey])byMonth[monthKey]={hours:0,earnings:0};
+    byMonth[monthKey].hours+=h;byMonth[monthKey].earnings+=pay;
+  });
+
+  return{totalHours,totalEarnings,w2Earnings,contractorEarnings,byJob,byMonth,shiftCount:pastShifts.length};
+}
 
 // ─── NAV ───
-document.querySelectorAll('.nav-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+btn.dataset.screen).classList.add('active');if(btn.dataset.screen==='calendar')renderCalendar();if(btn.dataset.screen==='jobs')renderJobs();if(btn.dataset.screen==='dashboard')renderDashboard()})});
-document.querySelectorAll('.period-tab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.period-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');currentPeriod=tab.dataset.period;periodOffset=0;renderDashboard()})});
+document.querySelectorAll('.nav-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+btn.dataset.screen).classList.add('active');if(btn.dataset.screen==='calendar')renderCalendar();if(btn.dataset.screen==='jobs')renderJobs();if(btn.dataset.screen==='dashboard')renderDashboard();if(btn.dataset.screen==='tax')renderTax()})});
+
+// Tax sub-tabs
+document.querySelectorAll('.tax-sub-tab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.tax-sub-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');document.getElementById('subtab-ytd').style.display=tab.dataset.subtab==='ytd'?'block':'none';document.getElementById('subtab-taxes').style.display=tab.dataset.subtab==='taxes'?'block':'none'})});
+
+document.querySelectorAll('.period-tab:not(.tax-sub-tab)').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.period-tab:not(.tax-sub-tab)').forEach(t=>t.classList.remove('active'));tab.classList.add('active');currentPeriod=tab.dataset.period;periodOffset=0;renderDashboard()})});
 function navPeriod(dir){periodOffset+=dir;renderDashboard()}
 
 // ─── DASHBOARD ───
@@ -281,10 +504,16 @@ function renderDashboard(){
 
   document.getElementById('periodLabel').textContent=label;
   document.getElementById('summaryTitle').textContent=titlePrefix+' Summary';
-  const shifts=shiftsInRange(startStr,endStr);const summary=computeSummary(shifts);
+  const shifts=shiftsInRange(startStr,endStr);
+  const summary=computeSummary(shifts,true);
+
   document.getElementById('summaryHours').textContent=summary.hours.toFixed(1);
   document.getElementById('summaryEarnings').textContent=formatMoney(summary.earnings);
-  document.getElementById('summaryShifts').textContent=summary.count;
+  document.getElementById('summaryShifts').textContent=summary.pastCount;
+
+  // Show scheduled future count
+  const schedRow=document.getElementById('scheduledRow');
+  if(summary.futureCount>0){schedRow.style.display='flex';document.getElementById('summaryScheduled').textContent=summary.futureCount}else{schedRow.style.display='none'}
 
   const otRow=document.getElementById('overtimeRow');
   if(currentPeriod==='week'){const ot=Math.max(0,summary.hours-state.settings.otThreshold);otRow.style.display=ot>0?'flex':'none';document.getElementById('summaryOT').textContent=ot.toFixed(1);if(ot>0){const maxRate=Math.max(...state.jobs.map(j=>j.rate||0),0);document.getElementById('summaryEarnings').textContent=formatMoney(summary.earnings+ot*maxRate*(state.settings.otMultiplier-1))}}else{otRow.style.display='none'}
@@ -292,11 +521,105 @@ function renderDashboard(){
   const breakdownEl=document.getElementById('breakdownSection');const jobKeys=Object.keys(summary.byJob);
   if(jobKeys.length>0&&summary.hours>0){let html='<div class="card"><div class="card-title">Breakdown by Job</div>';jobKeys.forEach(jid=>{const j=summary.byJob[jid];const pct=summary.hours>0?(j.hours/summary.hours*100):0;html+=`<div class="breakdown-item"><div class="breakdown-label"><span>${j.name}</span><span>${j.hours.toFixed(1)}h · ${formatMoney(j.earnings)}</span></div><div class="breakdown-bar"><div class="breakdown-fill" style="width:${pct}%;background:${j.color}"></div></div></div>`});html+='</div>';breakdownEl.innerHTML=html}else{breakdownEl.innerHTML=''}
 
-  if(currentPeriod==='week'){const days=['S','M','T','W','T','F','S'];const ws=state.settings.weekStart;const reordered=[...days.slice(ws),...days.slice(0,ws)];let wh='<div class="week-summary">';for(let i=0;i<7;i++){const d=new Date(parseDate(startStr));d.setDate(d.getDate()+i);const ds=toDateStr(d);const dayShifts=state.shifts.filter(s=>s.date===ds);let dh=0;dayShifts.forEach(s=>dh+=calcHours(s.start,s.end,s.breakMin));wh+=`<div class="week-day"><div class="wl">${reordered[i]}</div><div class="wh" style="color:${dh>0?'var(--green)':'var(--muted)'}">${dh>0?dh.toFixed(1):'-'}</div><div class="wl">${d.getDate()}</div></div>`}wh+='</div>';breakdownEl.innerHTML=wh+breakdownEl.innerHTML}
+  if(currentPeriod==='week'){const days=['S','M','T','W','T','F','S'];const ws=state.settings.weekStart;const reordered=[...days.slice(ws),...days.slice(0,ws)];let wh='<div class="week-summary">';for(let i=0;i<7;i++){const d=new Date(parseDate(startStr));d.setDate(d.getDate()+i);const ds=toDateStr(d);const dayShifts=state.shifts.filter(s=>s.date===ds);const past=ds<=todayStr();let dh=0;dayShifts.forEach(s=>dh+=calcHours(s.start,s.end,s.breakMin));const col=!past?'var(--orange)':dh>0?'var(--green)':'var(--muted)';wh+=`<div class="week-day"><div class="wl">${reordered[i]}</div><div class="wh" style="color:${col}">${dh>0?dh.toFixed(1):'-'}</div><div class="wl">${d.getDate()}</div></div>`}wh+='</div>';breakdownEl.innerHTML=wh+breakdownEl.innerHTML}
 
-  const listEl=document.getElementById('shiftsList');const sorted=[...shifts].sort((a,b)=>{if(a.date!==b.date)return a.date>b.date?-1:1;return a.start>b.start?-1:1});
+  // Shift list
+  const listEl=document.getElementById('shiftsList');
+  const sorted=[...shifts].sort((a,b)=>{if(a.date!==b.date)return a.date>b.date?-1:1;return a.start>b.start?-1:1});
   if(sorted.length===0){listEl.innerHTML='<div class="empty-state"><p>No shifts for this period</p></div>'}
-  else{listEl.innerHTML=sorted.map(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);return`<div class="shift-item" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-day">${formatDate(s.date)}</div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay">${formatMoney(pay)}</div></div></div>`}).join('')}
+  else{const td=todayStr();listEl.innerHTML=sorted.map(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);const future=s.date>td;return`<div class="shift-item${future?' shift-future':''}" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-day">${formatDate(s.date)}${future?' <span class="badge badge-future">Scheduled</span>':''}</div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay">${future?'('+formatMoney(pay)+')':formatMoney(pay)}</div></div></div>`}).join('')}
+}
+
+// ─── TAX TAB ───
+function renderTax(){
+  const ytd=getYTDEarnings();
+  document.getElementById('ytdGross').textContent=formatMoney(ytd.totalEarnings);
+  document.getElementById('ytdHours').textContent=ytd.totalHours.toFixed(1);
+
+  // YTD tax estimate (on actual earned so far)
+  const ytdTaxes=calcAllTaxes(ytd.totalEarnings,ytd.w2Earnings,ytd.contractorEarnings);
+  document.getElementById('ytdNet').textContent=formatMoney(ytdTaxes.takeHome);
+  document.getElementById('ytdTaxTotal').textContent=formatMoney(ytdTaxes.grandTotal);
+  document.getElementById('ytdEffRate').textContent=ytdTaxes.effectiveRate.toFixed(1)+'%';
+
+  // Monthly breakdown
+  const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const year=new Date().getFullYear();
+  const monthlyEl=document.getElementById('ytdMonthly');
+  let maxMonthEarn=0;
+  const monthData=[];
+  for(let m=0;m<12;m++){
+    const key=year+'-'+String(m+1).padStart(2,'0');
+    const d=ytd.byMonth[key]||{hours:0,earnings:0};
+    if(d.earnings>maxMonthEarn)maxMonthEarn=d.earnings;
+    monthData.push({name:monthNames[m],hours:d.hours,earnings:d.earnings});
+  }
+  const currentMonth=new Date().getMonth();
+  monthlyEl.innerHTML=monthData.slice(0,currentMonth+1).map(m=>{
+    const pct=maxMonthEarn>0?(m.earnings/maxMonthEarn*100):0;
+    return`<div class="ytd-month"><div class="ytd-month-header"><span>${m.name}</span><span style="color:var(--green)">${formatMoney(m.earnings)}</span></div><div class="ytd-month-detail"><span>${m.hours.toFixed(1)} hours</span></div><div class="ytd-bar"><div class="ytd-bar-fill" style="width:${pct}%"></div></div></div>`;
+  }).join('')||'<div class="empty-state"><p>No earned shifts yet this year</p></div>';
+
+  // By job
+  const jobEl=document.getElementById('ytdByJob');
+  const jobKeys=Object.keys(ytd.byJob);
+  if(jobKeys.length>0){
+    jobEl.innerHTML=jobKeys.map(jid=>{const j=ytd.byJob[jid];const pct=ytd.totalEarnings>0?(j.earnings/ytd.totalEarnings*100):0;return`<div class="breakdown-item"><div class="breakdown-label"><span>${j.name} <span style="font-size:10px;color:var(--muted)">${j.type==='contractor'?'(1099)':'(W-2)'}</span></span><span>${j.hours.toFixed(1)}h · ${formatMoney(j.earnings)}</span></div><div class="breakdown-bar"><div class="breakdown-fill" style="width:${pct}%;background:${j.color}"></div></div></div>`}).join('');
+  }else{jobEl.innerHTML='<div class="empty-state"><p>No data</p></div>'}
+
+  // ─── Projected annual (annualize from YTD pace) ───
+  const dayOfYear=Math.floor((new Date()-new Date(year,0,1))/(86400000))+1;
+  const daysInYear=365;
+  const projFactor=dayOfYear>0?daysInYear/dayOfYear:1;
+  const projTotal=ytd.totalEarnings*projFactor;
+  const projW2=ytd.w2Earnings*projFactor;
+  const proj1099=ytd.contractorEarnings*projFactor;
+
+  document.getElementById('projectedIncome').textContent=formatMoney(projTotal);
+  document.getElementById('projW2').textContent=formatMoney(projW2);
+  document.getElementById('proj1099').textContent=formatMoney(proj1099);
+
+  // Tax breakdown on projected
+  const taxes=calcAllTaxes(projTotal,projW2,proj1099);
+
+  // Federal
+  const fedEl=document.getElementById('fedTaxBreakdown');
+  let fedHtml=`<div class="tax-row"><div><div class="t-label">Adjusted Gross Income</div></div><div class="t-val positive">${formatMoney(taxes.agi)}</div></div>`;
+  fedHtml+=`<div class="tax-row"><div><div class="t-label">Standard Deduction</div></div><div class="t-val positive">-${formatMoney(STANDARD_DEDUCTION)}</div></div>`;
+  fedHtml+=`<div class="tax-row"><div><div class="t-label">Taxable Income</div></div><div class="t-val positive">${formatMoney(taxes.taxableIncome)}</div></div>`;
+  taxes.fedDetails.forEach(d=>{fedHtml+=`<div class="tax-row"><div><div class="t-label">${d.bracket}</div></div><div class="t-val">${formatMoney(d.amount)}</div></div>`});
+  fedEl.innerHTML=fedHtml;
+  document.getElementById('fedTaxTotal').textContent=formatMoney(taxes.fedTax);
+
+  // FICA
+  const ficaEl=document.getElementById('ficaBreakdown');
+  let ficaHtml='';
+  ficaHtml+=`<div class="tax-row"><div><div class="t-label">Social Security (W-2)</div><div class="t-sub">6.2% on wages up to $168,600</div></div><div class="t-val">${formatMoney(taxes.w2SS)}</div></div>`;
+  ficaHtml+=`<div class="tax-row"><div><div class="t-label">Medicare (W-2)</div><div class="t-sub">1.45% on all wages</div></div><div class="t-val">${formatMoney(taxes.w2Medicare)}</div></div>`;
+  if(proj1099>0){
+    ficaHtml+=`<div class="tax-row"><div><div class="t-label">Self-Employment Tax (1099)</div><div class="t-sub">15.3% on 92.35% of contractor income</div></div><div class="t-val">${formatMoney(taxes.seTax)}</div></div>`;
+  }
+  if(taxes.medicareSurtax>0){
+    ficaHtml+=`<div class="tax-row"><div><div class="t-label">Medicare Surtax</div><div class="t-sub">0.9% on income over $200k</div></div><div class="t-val">${formatMoney(taxes.medicareSurtax)}</div></div>`;
+  }
+  ficaEl.innerHTML=ficaHtml;
+  document.getElementById('ficaTotal').textContent=formatMoney(taxes.ficaTotal);
+
+  // State & Local
+  const stateEl=document.getElementById('stateTaxBreakdown');
+  let stateHtml='';
+  stateHtml+=`<div class="tax-row"><div><div class="t-label">PA State Income Tax</div><div class="t-sub">Flat 3.07%</div></div><div class="t-val">${formatMoney(taxes.paStateTax)}</div></div>`;
+  stateHtml+=`<div class="tax-row"><div><div class="t-label">Camp Hill Local EIT</div><div class="t-sub">~1.05% (municipality + school)</div></div><div class="t-val">${formatMoney(taxes.localTax)}</div></div>`;
+  stateEl.innerHTML=stateHtml;
+  document.getElementById('stateTaxTotal').textContent=formatMoney(taxes.stateLocalTotal);
+
+  // Grand total
+  document.getElementById('totalTaxAnnual').textContent=formatMoney(taxes.grandTotal);
+  const shiftsPerYear=ytd.shiftCount*projFactor;
+  const perPaycheck=shiftsPerYear>0?taxes.grandTotal/shiftsPerYear:0;
+  document.getElementById('totalTaxPer').textContent=formatMoney(perPaycheck);
+  document.getElementById('taxEffRate').textContent=taxes.effectiveRate.toFixed(1)+'%';
+  document.getElementById('taxTakeHome').textContent=formatMoney(taxes.takeHome);
 }
 
 // ─── CALENDAR ───
@@ -304,44 +627,42 @@ function navCalMonth(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++}if(
 function renderCalendar(){
   document.getElementById('calMonthLabel').textContent=new Date(calYear,calMonth).toLocaleDateString('en-US',{month:'long',year:'numeric'});
   const ws=state.settings.weekStart;const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];const reordered=[...dayNames.slice(ws),...dayNames.slice(0,ws)];
-  const firstDay=new Date(calYear,calMonth,1);const lastDay=new Date(calYear,calMonth+1,0);const startDow=(firstDay.getDay()-ws+7)%7;const todayStr=toDateStr(new Date());const shiftDates=new Set(state.shifts.map(s=>s.date));
+  const firstDay=new Date(calYear,calMonth,1);const lastDay=new Date(calYear,calMonth+1,0);const startDow=(firstDay.getDay()-ws+7)%7;const td=todayStr();const shiftDates=new Set(state.shifts.map(s=>s.date));
   let html=reordered.map(d=>`<div class="day-header">${d.substring(0,2)}</div>`).join('');
   const prevLast=new Date(calYear,calMonth,0);for(let i=startDow-1;i>=0;i--){const day=prevLast.getDate()-i;const ds=toDateStr(new Date(calYear,calMonth-1,day));html+=`<div class="day-cell other-month${shiftDates.has(ds)?' has-shift':''}" onclick="selectCalDay('${ds}')">${day}</div>`}
-  for(let d=1;d<=lastDay.getDate();d++){const ds=toDateStr(new Date(calYear,calMonth,d));html+=`<div class="day-cell${ds===todayStr?' today':''}${ds===selectedCalDate?' selected':''}${shiftDates.has(ds)?' has-shift':''}" onclick="selectCalDay('${ds}')">${d}</div>`}
+  for(let d=1;d<=lastDay.getDate();d++){const ds=toDateStr(new Date(calYear,calMonth,d));html+=`<div class="day-cell${ds===td?' today':''}${ds===selectedCalDate?' selected':''}${shiftDates.has(ds)?' has-shift':''}" onclick="selectCalDay('${ds}')">${d}</div>`}
   const totalCells=startDow+lastDay.getDate();const remaining=(7-totalCells%7)%7;for(let d=1;d<=remaining;d++){const ds=toDateStr(new Date(calYear,calMonth+1,d));html+=`<div class="day-cell other-month${shiftDates.has(ds)?' has-shift':''}" onclick="selectCalDay('${ds}')">${d}</div>`}
   document.getElementById('calGrid').innerHTML=html;renderCalDayShifts()
 }
 function selectCalDay(ds){selectedCalDate=ds;renderCalendar()}
 function renderCalDayShifts(){
-  document.getElementById('calDayTitle').textContent=formatDate(selectedCalDate);const dayShifts=state.shifts.filter(s=>s.date===selectedCalDate);const el=document.getElementById('calDayShifts');
+  document.getElementById('calDayTitle').textContent=formatDate(selectedCalDate);const dayShifts=state.shifts.filter(s=>s.date===selectedCalDate);const el=document.getElementById('calDayShifts');const td=todayStr();
   if(dayShifts.length===0){el.innerHTML='<div class="empty-state" style="padding:20px"><p>No shifts</p></div>';return}
-  el.innerHTML=dayShifts.map(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);return`<div class="shift-item" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}${s.notes?' · '+s.notes:''}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay">${formatMoney(pay)}</div></div></div>`}).join('')
+  el.innerHTML=dayShifts.map(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);const future=s.date>td;return`<div class="shift-item${future?' shift-future':''}" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-time">${s.start} – ${s.end}${future?' <span class="badge badge-future">Scheduled</span>':''}</div><div class="shift-job">${job?job.name:'Unknown'}${s.notes?' · '+s.notes:''}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay">${future?'('+formatMoney(pay)+')':formatMoney(pay)}</div></div></div>`}).join('')
 }
 
 // ─── JOBS ───
 function renderJobs(){
-  const el=document.getElementById('jobsList');
+  const el=document.getElementById('jobsList');const td=todayStr();
   if(state.jobs.length===0){el.innerHTML='<div class="empty-state"><p>No jobs yet. Add your first job to get started.</p></div>';return}
-  el.innerHTML=state.jobs.map(j=>{const jobShifts=state.shifts.filter(s=>s.jobId===j.id);const totalH=jobShifts.reduce((sum,s)=>sum+calcHours(s.start,s.end,s.breakMin),0);return`<div class="card" onclick="openEditJob('${j.id}')" style="cursor:pointer;border-left:3px solid ${j.color}"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:16px">${j.name}</div><div style="color:var(--muted);font-size:13px;margin-top:4px">${formatMoney(j.rate)}/hr · ${j.type==='rotating'?'Rotating':j.type==='prn'?'PRN':'Fixed'}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600">${totalH.toFixed(1)}h</div><div style="color:var(--green);font-size:13px">${formatMoney(totalH*j.rate)}</div><div style="color:var(--muted);font-size:11px">all time</div></div></div></div>`}).join('')
+  el.innerHTML=state.jobs.map(j=>{const jobShifts=state.shifts.filter(s=>s.jobId===j.id&&s.date<=td);const totalH=jobShifts.reduce((sum,s)=>sum+calcHours(s.start,s.end,s.breakMin),0);const typeLabel=j.type==='contractor'?'1099':j.type==='rotating'?'Rotating':j.type==='prn'?'PRN':'Fixed';return`<div class="card" onclick="openEditJob('${j.id}')" style="cursor:pointer;border-left:3px solid ${j.color}"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:16px">${j.name}</div><div style="color:var(--muted);font-size:13px;margin-top:4px">${formatMoney(j.rate)}/hr · ${typeLabel}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600">${totalH.toFixed(1)}h</div><div style="color:var(--green);font-size:13px">${formatMoney(totalH*j.rate)}</div><div style="color:var(--muted);font-size:11px">earned</div></div></div></div>`}).join('')
 }
 
 // ─── MODALS ───
 function openModal(id){document.getElementById(id).classList.add('show')}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
-function openAddShift(){editingShiftId=null;document.getElementById('shiftModalTitle').textContent='Add Shift';document.getElementById('deleteShiftBtn').style.display='none';populateJobSelect();document.getElementById('shiftDate').value=selectedCalDate||toDateStr(new Date());document.getElementById('shiftStart').value='';document.getElementById('shiftEnd').value='';document.getElementById('shiftBreak').value='0';document.getElementById('shiftNotes').value='';openModal('shiftModal')}
+function openAddShift(){editingShiftId=null;document.getElementById('shiftModalTitle').textContent='Add Shift';document.getElementById('deleteShiftBtn').style.display='none';populateJobSelect();document.getElementById('shiftDate').value=selectedCalDate||todayStr();document.getElementById('shiftStart').value='';document.getElementById('shiftEnd').value='';document.getElementById('shiftBreak').value='0';document.getElementById('shiftNotes').value='';openModal('shiftModal')}
 function openEditShift(id){const s=state.shifts.find(x=>x.id===id);if(!s)return;editingShiftId=id;document.getElementById('shiftModalTitle').textContent='Edit Shift';document.getElementById('deleteShiftBtn').style.display='block';populateJobSelect();document.getElementById('shiftJob').value=s.jobId;document.getElementById('shiftDate').value=s.date;document.getElementById('shiftStart').value=s.start;document.getElementById('shiftEnd').value=s.end;document.getElementById('shiftBreak').value=s.breakMin||0;document.getElementById('shiftNotes').value=s.notes||'';openModal('shiftModal')}
 function populateJobSelect(){const sel=document.getElementById('shiftJob');sel.innerHTML=state.jobs.map(j=>`<option value="${j.id}">${j.name}</option>`).join('');if(state.jobs.length===0)sel.innerHTML='<option value="">No jobs – add one first</option>'}
-function saveShift(){const jobId=document.getElementById('shiftJob').value;if(!jobId){alert('Add a job first!');return}const date=document.getElementById('shiftDate').value;const start=document.getElementById('shiftStart').value;const end=document.getElementById('shiftEnd').value;if(!date||!start||!end){alert('Fill in date, start and end time');return}const shift={id:editingShiftId||uid(),jobId,date,start,end,breakMin:parseInt(document.getElementById('shiftBreak').value)||0,notes:document.getElementById('shiftNotes').value.trim()};if(editingShiftId){const idx=state.shifts.findIndex(s=>s.id===editingShiftId);if(idx>=0)state.shifts[idx]=shift}else{state.shifts.push(shift)}save();closeModal('shiftModal');renderDashboard();if(document.getElementById('screen-calendar').classList.contains('active'))renderCalendar()}
-function deleteShift(){if(!editingShiftId)return;if(!confirm('Delete this shift?'))return;state.shifts=state.shifts.filter(s=>s.id!==editingShiftId);save();closeModal('shiftModal');renderDashboard();if(document.getElementById('screen-calendar').classList.contains('active'))renderCalendar()}
+function saveShift(){const jobId=document.getElementById('shiftJob').value;if(!jobId){alert('Add a job first!');return}const date=document.getElementById('shiftDate').value;const start=document.getElementById('shiftStart').value;const end=document.getElementById('shiftEnd').value;if(!date||!start||!end){alert('Fill in date, start and end time');return}const shift={id:editingShiftId||uid(),jobId,date,start,end,breakMin:parseInt(document.getElementById('shiftBreak').value)||0,notes:document.getElementById('shiftNotes').value.trim()};if(editingShiftId){const idx=state.shifts.findIndex(s=>s.id===editingShiftId);if(idx>=0)state.shifts[idx]=shift}else{state.shifts.push(shift)}save();closeModal('shiftModal');renderDashboard();if(document.getElementById('screen-calendar').classList.contains('active'))renderCalendar();if(document.getElementById('screen-tax').classList.contains('active'))renderTax()}
+function deleteShift(){if(!editingShiftId)return;if(!confirm('Delete this shift?'))return;state.shifts=state.shifts.filter(s=>s.id!==editingShiftId);save();closeModal('shiftModal');renderDashboard();if(document.getElementById('screen-calendar').classList.contains('active'))renderCalendar();if(document.getElementById('screen-tax').classList.contains('active'))renderTax()}
 function openAddJob(){editingJobId=null;document.getElementById('jobModalTitle').textContent='Add Job';document.getElementById('deleteJobBtn').style.display='none';document.getElementById('jobName').value='';document.getElementById('jobRate').value='';document.getElementById('jobColor').value='#6c5ce7';document.getElementById('jobType').value='rotating';openModal('jobModal')}
 function openEditJob(id){const j=state.jobs.find(x=>x.id===id);if(!j)return;editingJobId=id;document.getElementById('jobModalTitle').textContent='Edit Job';document.getElementById('deleteJobBtn').style.display='block';document.getElementById('jobName').value=j.name;document.getElementById('jobRate').value=j.rate;document.getElementById('jobColor').value=j.color;document.getElementById('jobType').value=j.type;openModal('jobModal')}
-function saveJob(){const name=document.getElementById('jobName').value.trim();const rate=parseFloat(document.getElementById('jobRate').value);if(!name||isNaN(rate)){alert('Enter job name and rate');return}const job={id:editingJobId||uid(),name,rate,color:document.getElementById('jobColor').value,type:document.getElementById('jobType').value};if(editingJobId){const idx=state.jobs.findIndex(j=>j.id===editingJobId);if(idx>=0)state.jobs[idx]=job}else{state.jobs.push(job)}save();closeModal('jobModal');renderJobs()}
-function deleteJob(){if(!editingJobId)return;if(!confirm('Delete this job and all its shifts?'))return;state.shifts=state.shifts.filter(s=>s.jobId!==editingJobId);state.jobs=state.jobs.filter(j=>j.id!==editingJobId);save();closeModal('jobModal');renderJobs();renderDashboard()}
+function saveJob(){const name=document.getElementById('jobName').value.trim();const rate=parseFloat(document.getElementById('jobRate').value);if(!name||isNaN(rate)){alert('Enter job name and rate');return}const job={id:editingJobId||uid(),name,rate,color:document.getElementById('jobColor').value,type:document.getElementById('jobType').value};if(editingJobId){const idx=state.jobs.findIndex(j=>j.id===editingJobId);if(idx>=0)state.jobs[idx]=job}else{state.jobs.push(job)}save();closeModal('jobModal');renderJobs();renderTax()}
+function deleteJob(){if(!editingJobId)return;if(!confirm('Delete this job and all its shifts?'))return;state.shifts=state.shifts.filter(s=>s.jobId!==editingJobId);state.jobs=state.jobs.filter(j=>j.id!==editingJobId);save();closeModal('jobModal');renderJobs();renderDashboard();renderTax()}
 
-// ─── SETTINGS ───
 function saveSettings(){state.settings.otThreshold=parseFloat(document.getElementById('otThreshold').value)||40;state.settings.otMultiplier=parseFloat(document.getElementById('otMultiplier').value)||1.5;state.settings.weekStart=parseInt(document.getElementById('weekStart').value)||0;save()}
-function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='shifttrack-backup-'+toDateStr(new Date())+'.json';a.click()}
-
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='shifttrack-backup-'+todayStr()+'.json';a.click()}
 document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)closeModal(o.id)})});
 </script>
 </body>
