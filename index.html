@@ -136,6 +136,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .tax-total{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:2px solid var(--accent);margin-top:4px}
 .tax-total .t-label{font-size:16px;font-weight:700}
 .tax-total .t-val{font-size:18px;font-weight:700}
+.tp-input-row{display:flex;justify-content:space-between;align-items:center}
+.tp-label{font-size:13px;color:var(--text);flex:1}
+.tp-field{display:flex;align-items:center;gap:2px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 10px;width:130px}
+.tp-dollar{font-size:14px;color:var(--muted)}
+.tp-input{background:transparent;border:none;color:var(--text);font-size:15px;font-weight:600;width:100%;font-family:'DM Sans',sans-serif;outline:none}
+.tp-input::placeholder{color:var(--muted);font-weight:400}
+.sd-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.sd-row:last-child{border-bottom:none}
+.sd-cat{font-size:13px;color:var(--text)}
+.sd-vals{display:flex;gap:16px;font-size:13px;text-align:right}
+.sd-est,.sd-paid,.sd-diff{min-width:65px}
 
 /* YTD */
 .ytd-month{padding:10px 0;border-bottom:1px solid var(--border)}
@@ -312,6 +323,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           ⚠️ All figures based on actual worked/logged shifts only — no projections. Federal: flat 30% on gross (conservative). FICA: SS 6.2% + Medicare 1.45% on W-2, SE tax 15.3% on 1099. PA flat 3.07%, Camp Hill local ~1.05%. Not tax advice — consult a CPA.
         </div>
       </div>
+
+      <!-- Actual Taxes Paid -->
+      <div class="card" style="border-color:var(--accent)">
+        <div class="card-title" style="color:var(--accent)">Actual Taxes Paid (from Pay Stubs)</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Enter what was actually withheld/paid per category this year.</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="tp-input-row"><label class="tp-label">Federal Withheld</label><div class="tp-field"><span class="tp-dollar">$</span><input type="number" id="paidFederal" class="tp-input" placeholder="0.00" inputmode="decimal" onchange="saveTaxPayment()"></div></div>
+          <div class="tp-input-row"><label class="tp-label">Social Security</label><div class="tp-field"><span class="tp-dollar">$</span><input type="number" id="paidSS" class="tp-input" placeholder="0.00" inputmode="decimal" onchange="saveTaxPayment()"></div></div>
+          <div class="tp-input-row"><label class="tp-label">Medicare</label><div class="tp-field"><span class="tp-dollar">$</span><input type="number" id="paidMedicare" class="tp-input" placeholder="0.00" inputmode="decimal" onchange="saveTaxPayment()"></div></div>
+          <div class="tp-input-row"><label class="tp-label">SE Tax (1099 quarterly)</label><div class="tp-field"><span class="tp-dollar">$</span><input type="number" id="paidSE" class="tp-input" placeholder="0.00" inputmode="decimal" onchange="saveTaxPayment()"></div></div>
+          <div class="tp-input-row"><label class="tp-label">PA State</label><div class="tp-field"><span class="tp-dollar">$</span><input type="number" id="paidState" class="tp-input" placeholder="0.00" inputmode="decimal" onchange="saveTaxPayment()"></div></div>
+          <div class="tp-input-row"><label class="tp-label">Local (Camp Hill)</label><div class="tp-field"><span class="tp-dollar">$</span><input type="number" id="paidLocal" class="tp-input" placeholder="0.00" inputmode="decimal" onchange="saveTaxPayment()"></div></div>
+        </div>
+        <div class="tax-total" style="margin-top:12px"><span class="t-label">Total Paid</span><span class="t-val" style="color:var(--accent)" id="totalPaid">$0</span></div>
+      </div>
+
+      <!-- Surplus / Deficit -->
+      <div class="card" id="surplusDeficitCard" style="display:none">
+        <div class="card-title" id="sdTitle">Surplus / Deficit</div>
+        <div id="sdBreakdown"></div>
+        <div style="display:flex;gap:16px;margin-top:12px">
+          <div style="flex:1"><div class="stat-label">Net Difference</div><div class="stat-big" id="sdTotal">$0</div></div>
+          <div style="flex:1"><div class="stat-label">Status</div><div class="stat-big" id="sdStatus" style="font-size:16px">—</div></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -430,10 +466,10 @@ function updateDots(){document.querySelectorAll('.pin-dot').forEach((d,i)=>{d.cl
 function unlock(){document.getElementById('lockScreen').classList.add('hidden');document.getElementById('app').classList.add('unlocked');document.getElementById('mainNav').classList.add('show');load();renderDashboard()}
 
 // ─── STATE ───
-let state={jobs:[],shifts:[],settings:{otThreshold:40,otMultiplier:1.5,weekStart:0}};
+let state={jobs:[],shifts:[],settings:{otThreshold:40,otMultiplier:1.5,weekStart:0},taxPayments:[]};
 let currentPeriod='day',periodOffset=0,calMonth=new Date().getMonth(),calYear=new Date().getFullYear(),selectedCalDate=toDateStr(new Date()),editingShiftId=null,editingJobId=null;
 
-function load(){try{const d=localStorage.getItem('nursex');if(d)state=JSON.parse(d)}catch(e){}document.getElementById('otThreshold').value=state.settings.otThreshold;document.getElementById('otMultiplier').value=state.settings.otMultiplier;document.getElementById('weekStart').value=state.settings.weekStart}
+function load(){try{const d=localStorage.getItem('nursex');if(d)state=JSON.parse(d)}catch(e){}if(!state.taxPayments)state.taxPayments=[];document.getElementById('otThreshold').value=state.settings.otThreshold;document.getElementById('otMultiplier').value=state.settings.otMultiplier;document.getElementById('weekStart').value=state.settings.weekStart}
 function save(){localStorage.setItem('nursex',JSON.stringify(state))}
 
 // ─── HELPERS ───
@@ -610,6 +646,90 @@ function renderTax(){
   document.getElementById('totalTaxPer').textContent=formatMoney(perShift);
   document.getElementById('taxEffRate').textContent=taxes.effectiveRate.toFixed(1)+'%';
   document.getElementById('taxTakeHome').textContent=formatMoney(taxes.takeHome);
+
+  // Load actual paid inputs & surplus/deficit
+  loadTaxPaymentInputs();renderSurplusDeficit();
+}
+
+// ─── TAX PAYMENTS ───
+function saveTaxPayment(){
+  const year=new Date().getFullYear();
+  const entry={
+    year:year,
+    federal:parseFloat(document.getElementById('paidFederal').value)||0,
+    ss:parseFloat(document.getElementById('paidSS').value)||0,
+    medicare:parseFloat(document.getElementById('paidMedicare').value)||0,
+    se:parseFloat(document.getElementById('paidSE').value)||0,
+    state:parseFloat(document.getElementById('paidState').value)||0,
+    local:parseFloat(document.getElementById('paidLocal').value)||0
+  };
+  const idx=state.taxPayments.findIndex(p=>p.year===year);
+  if(idx>=0)state.taxPayments[idx]=entry;else state.taxPayments.push(entry);
+  save();renderSurplusDeficit();
+}
+function getTaxPayment(){
+  const year=new Date().getFullYear();
+  return state.taxPayments.find(p=>p.year===year)||{federal:0,ss:0,medicare:0,se:0,state:0,local:0};
+}
+function loadTaxPaymentInputs(){
+  const p=getTaxPayment();
+  document.getElementById('paidFederal').value=p.federal||'';
+  document.getElementById('paidSS').value=p.ss||'';
+  document.getElementById('paidMedicare').value=p.medicare||'';
+  document.getElementById('paidSE').value=p.se||'';
+  document.getElementById('paidState').value=p.state||'';
+  document.getElementById('paidLocal').value=p.local||'';
+  const total=p.federal+p.ss+p.medicare+p.se+p.state+p.local;
+  document.getElementById('totalPaid').textContent=formatMoney(total);
+}
+function renderSurplusDeficit(){
+  const ytd=getYTDEarnings();
+  const taxes=calcAllTaxes(ytd.totalEarnings,ytd.w2Earnings,ytd.contractorEarnings);
+  const p=getTaxPayment();
+  const totalPaid=(p.federal||0)+(p.ss||0)+(p.medicare||0)+(p.se||0)+(p.state||0)+(p.local||0);
+  document.getElementById('totalPaid').textContent=formatMoney(totalPaid);
+  const card=document.getElementById('surplusDeficitCard');
+  if(totalPaid===0){card.style.display='none';return}
+  card.style.display='block';
+  const rows=[
+    {cat:'Federal',est:taxes.fedTax,paid:p.federal||0},
+    {cat:'Social Security',est:taxes.w2SS,paid:p.ss||0},
+    {cat:'Medicare',est:taxes.w2Medicare+(taxes.medicareSurtax||0),paid:p.medicare||0},
+    {cat:'SE Tax (1099)',est:taxes.seTax||0,paid:p.se||0},
+    {cat:'PA State',est:taxes.paStateTax,paid:p.state||0},
+    {cat:'Local',est:taxes.localTax,paid:p.local||0}
+  ];
+  let html='<div style="display:flex;justify-content:space-between;padding:4px 0 8px;border-bottom:1px solid var(--border);margin-bottom:4px"><div style="flex:1;font-size:11px;color:var(--muted)">Category</div><div class="sd-vals"><div class="sd-est" style="font-size:11px;color:var(--muted)">Estimated</div><div class="sd-paid" style="font-size:11px;color:var(--muted)">Paid</div><div class="sd-diff" style="font-size:11px;color:var(--muted)">Diff</div></div></div>';
+  let totalEst=0,totalDiff=0;
+  rows.forEach(r=>{
+    if(r.est===0&&r.paid===0)return;
+    const diff=r.paid-r.est;totalEst+=r.est;totalDiff+=diff;
+    const col=diff>0?'var(--green)':diff<0?'var(--red)':'var(--muted)';
+    const sign=diff>0?'+':'';
+    html+=`<div class="sd-row"><div class="sd-cat">${r.cat}</div><div class="sd-vals"><div class="sd-est" style="color:var(--red)">${formatMoney(r.est)}</div><div class="sd-paid" style="color:var(--accent)">${formatMoney(r.paid)}</div><div class="sd-diff" style="color:${col};font-weight:600">${sign}${formatMoney(diff)}</div></div></div>`;
+  });
+  document.getElementById('sdBreakdown').innerHTML=html;
+  const netDiff=totalPaid-taxes.grandTotal;
+  const col=netDiff>0?'var(--green)':netDiff<0?'var(--red)':'var(--muted)';
+  const sign=netDiff>0?'+':'';
+  document.getElementById('sdTotal').textContent=sign+formatMoney(netDiff);
+  document.getElementById('sdTotal').style.color=col;
+  if(netDiff>0){
+    document.getElementById('sdStatus').textContent='Overpaying';
+    document.getElementById('sdStatus').style.color='var(--green)';
+    card.style.borderColor='var(--green)';
+    document.getElementById('sdTitle').style.color='var(--green)';
+  }else if(netDiff<0){
+    document.getElementById('sdStatus').textContent='Underpaying';
+    document.getElementById('sdStatus').style.color='var(--red)';
+    card.style.borderColor='var(--red)';
+    document.getElementById('sdTitle').style.color='var(--red)';
+  }else{
+    document.getElementById('sdStatus').textContent='On Track';
+    document.getElementById('sdStatus').style.color='var(--green)';
+    card.style.borderColor='var(--green)';
+    document.getElementById('sdTitle').style.color='var(--green)';
+  }
 }
 
 // ─── SCHEDULE VIEW ───
