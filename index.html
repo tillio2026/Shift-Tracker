@@ -365,14 +365,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <!-- EXPENSES -->
   <div id="screen-expenses" class="screen">
     <div class="header"><h1>Expenses</h1></div>
+    <div class="date-nav">
+      <button onclick="navExpMonth(-1)">‹</button>
+      <span class="date-label" id="expMonthLabel">This Month</span>
+      <button onclick="navExpMonth(1)">›</button>
+    </div>
     <div class="card">
-      <div class="card-title">Monthly Budget vs Take-Home</div>
+      <div class="card-title" id="expCardTitle">Monthly Budget vs Take-Home</div>
+      <div style="display:flex;gap:16px;margin-bottom:4px">
+        <div style="flex:1"><div class="stat-label">Gross Income</div><div class="stat-big" style="color:var(--green)" id="expGross">$0</div></div>
+        <div style="flex:1"><div class="stat-label">Est. Taxes (41%)</div><div class="stat-big" style="color:var(--red)" id="expTaxes">$0</div></div>
+      </div>
       <div style="display:flex;gap:16px;margin-bottom:8px">
-        <div style="flex:1"><div class="stat-label">Monthly Expenses</div><div class="stat-big" style="color:var(--red)" id="expTotal">$0</div></div>
-        <div style="flex:1"><div class="stat-label">Avg Take-Home</div><div class="stat-big" style="color:var(--green)" id="expTakeHome">$0</div></div>
+        <div style="flex:1"><div class="stat-label">Take-Home</div><div style="font-size:22px;font-weight:700;color:var(--green);margin-top:2px" id="expTakeHome">$0</div></div>
+        <div style="flex:1"><div class="stat-label">Monthly Bills</div><div style="font-size:22px;font-weight:700;color:var(--red);margin-top:2px" id="expTotal">$0</div></div>
       </div>
       <div class="budget-bar"><div class="budget-fill" id="budgetBar" style="width:0%;background:var(--green)"></div></div>
-      <div class="stat-row"><span class="stat-label">Monthly Surplus/Deficit</span><span class="stat-value" id="expDiff">$0</span></div>
+      <div class="stat-row"><span class="stat-label">After Bills</span><span class="stat-value" id="expDiff">$0</span></div>
       <div class="stat-row" id="expShiftsNeeded" style="display:none"><span class="stat-label">Extra shifts needed</span><span class="stat-value" style="color:var(--orange)" id="expShiftsVal">0</span></div>
     </div>
     <div class="card">
@@ -767,50 +776,60 @@ function addExpense(){
   renderExpenses();
 }
 function deleteExpense(id){state.expenses=state.expenses.filter(e=>e.id!==id);save();renderExpenses()}
-function renderExpenses(){
-  // Calculate avg monthly take-home from YTD
-  const ytd=getYTDEarnings();const taxes=calcAllTaxes(ytd.totalEarnings,ytd.w2Earnings,ytd.contractorEarnings);
-  const monthsElapsed=new Date().getMonth()+1;
-  const avgMonthlyGross=ytd.totalEarnings/monthsElapsed;
-  const avgMonthlyTax=taxes.grandTotal/monthsElapsed;
-  const avgMonthlyTakeHome=avgMonthlyGross-avgMonthlyTax;
+let expMonthOffset=0;
+function navExpMonth(dir){expMonthOffset+=dir;renderExpenses()}
 
-  // 1099 quarterly tax estimate (monthly portion)
-  const quarterlyTaxMonthly=ytd.contractorEarnings>0?(calcAllTaxes(0,0,ytd.contractorEarnings).seTax/monthsElapsed):0;
+function renderExpenses(){
+  // Get the selected month's shifts (earned + scheduled combined)
+  const today=new Date();
+  const expDate=new Date(today.getFullYear(),today.getMonth()+expMonthOffset,1);
+  const range=getMonthRange(expDate.getFullYear(),expDate.getMonth());
+  const monthShifts=shiftsInRange(range.start,range.end);
+  const monthLabel=expDate.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  document.getElementById('expMonthLabel').textContent=monthLabel;
+  document.getElementById('expCardTitle').textContent=monthLabel+' Budget';
+
+  // Calculate gross from ALL shifts in month (worked + scheduled)
+  let monthlyGross=0;
+  monthShifts.forEach(s=>{const p=calcShiftPay(s);monthlyGross+=p.totalPay});
+
+  // 41% flat tax estimate
+  const TAX_RATE=0.41;
+  const monthlyTax=monthlyGross*TAX_RATE;
+  const monthlyTakeHome=monthlyGross-monthlyTax;
 
   // Sum expenses
   let totalExpenses=state.expenses.reduce((sum,e)=>sum+e.amount,0);
-  const totalWithTax=totalExpenses+quarterlyTaxMonthly;
 
-  document.getElementById('expTotal').textContent=formatMoney(totalWithTax);
-  document.getElementById('expTakeHome').textContent=formatMoney(avgMonthlyTakeHome);
+  document.getElementById('expGross').textContent=formatMoney(monthlyGross);
+  document.getElementById('expTaxes').textContent=formatMoney(monthlyTax);
+  document.getElementById('expTakeHome').textContent=formatMoney(monthlyTakeHome);
+  document.getElementById('expTotal').textContent=formatMoney(totalExpenses);
 
-  const diff=avgMonthlyTakeHome-totalWithTax;
+  const diff=monthlyTakeHome-totalExpenses;
   const diffEl=document.getElementById('expDiff');
   diffEl.textContent=(diff>=0?'+':'')+formatMoney(diff);
   diffEl.style.color=diff>=0?'var(--green)':'var(--red)';
 
-  // Budget bar
-  const barPct=avgMonthlyTakeHome>0?Math.min(100,(totalWithTax/avgMonthlyTakeHome)*100):0;
+  // Budget bar (bills as % of take-home)
+  const barPct=monthlyTakeHome>0?Math.min(100,(totalExpenses/monthlyTakeHome)*100):0;
   const bar=document.getElementById('budgetBar');
   bar.style.width=barPct+'%';
   bar.style.background=barPct>100?'var(--red)':barPct>85?'var(--orange)':'var(--green)';
 
-  // Shifts needed
+  // Shifts needed if short
   const shiftRow=document.getElementById('expShiftsNeeded');
   if(diff<0){
     shiftRow.style.display='flex';
-    const avgPayPerShift=ytd.shiftCount>0?avgMonthlyTakeHome*monthsElapsed/ytd.shiftCount:0;
-    const shiftsNeeded=avgPayPerShift>0?Math.ceil(Math.abs(diff)/avgPayPerShift):0;
+    // avg pay per shift after tax
+    const avgGrossPerShift=monthShifts.length>0?monthlyGross/monthShifts.length:0;
+    const avgNetPerShift=avgGrossPerShift*(1-TAX_RATE);
+    const shiftsNeeded=avgNetPerShift>0?Math.ceil(Math.abs(diff)/avgNetPerShift):0;
     document.getElementById('expShiftsVal').textContent=shiftsNeeded+' (~'+formatMoney(Math.abs(diff))+' short)';
   }else{shiftRow.style.display='none'}
 
-  // Auto-calculated section (quarterly taxes)
-  const autoCard=document.getElementById('expAutoCard');
-  if(quarterlyTaxMonthly>0){
-    autoCard.style.display='block';
-    document.getElementById('expAutoList').innerHTML=`<div class="exp-item"><div><div class="exp-name">1099 SE Tax (monthly est.)</div><div class="exp-cat">Auto-calculated from Tax tab</div></div><div class="exp-amt">${formatMoney(quarterlyTaxMonthly)}</div></div>`;
-  }else{autoCard.style.display='none'}
+  // Hide auto card (no longer needed with flat 41%)
+  document.getElementById('expAutoCard').style.display='none';
 
   // Expense list
   const listEl=document.getElementById('expList');
