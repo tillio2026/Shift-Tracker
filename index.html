@@ -45,11 +45,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .header-icon{width:34px;height:34px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 10px rgba(124,111,247,0.25)}
 
 /* Nav */
-.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:none;justify-content:space-around;padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:100}
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:none;justify-content:space-around;padding:6px 0 max(6px,env(safe-area-inset-bottom));z-index:100}
 .nav.show{display:flex}
-.nav-btn{background:none;border:none;color:var(--muted);font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 10px;cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif}
+.nav-btn{background:none;border:none;color:var(--muted);font-size:9px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:3px;padding:3px 6px;cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif}
 .nav-btn.active{color:var(--accent)}
-.nav-btn svg{width:23px;height:23px}
+.nav-btn svg{width:21px;height:21px}
 
 /* Cards */
 .card{background:var(--card);border-radius:16px;padding:18px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.07);box-shadow:var(--shadow)}
@@ -158,6 +158,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 .badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:5px;font-weight:600;margin-left:6px;vertical-align:middle}
 .badge-future{background:var(--orange);color:#000}
+.badge-ot{background:var(--orange);color:#000}
 
 /* Divider */
 .section-divider{height:1px;background:rgba(255,255,255,0.06);margin:16px 0}
@@ -168,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .ytd-compact-item .yc-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:600}
 .ytd-compact-item .yc-val{font-size:18px;font-weight:700;margin-top:3px}
 
-/* Recurring shift styles */
+/* Recurring / toggle */
 .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
 .toggle-label{font-size:14px;font-weight:500}
 .toggle{width:46px;height:26px;background:var(--border);border-radius:13px;position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
@@ -185,11 +186,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .sched-summary-card .ss-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:600}
 .sched-summary-card .ss-val{font-size:18px;font-weight:700;margin-top:4px}
 .sched-section{margin-bottom:16px}
-.sched-section-header{display:flex;justify-content:space-between;align-items:center;padding:10px 0;cursor:pointer}
-.sched-section-header .ssh-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted)}
-.sched-section-header .ssh-arrow{color:var(--muted);font-size:16px;transition:.2s}
-.sched-section-header .ssh-arrow.open{transform:rotate(180deg)}
-.sched-section-body{overflow:hidden;transition:max-height .3s ease}
+
+/* Calendar picker for recurring */
+.cal-picker{background:var(--surface);border-radius:12px;padding:12px;margin:8px 0}
+.cal-picker .cp-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cal-picker .cp-nav button{background:none;border:none;color:var(--text);font-size:18px;cursor:pointer;padding:4px 8px}
+.cal-picker .cp-nav span{font-size:14px;font-weight:600}
+.cal-picker .cp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-picker .cp-hdr{text-align:center;font-size:10px;color:var(--muted);padding:4px 0;font-weight:600}
+.cal-picker .cp-day{text-align:center;padding:8px 2px;font-size:12px;border-radius:8px;cursor:pointer;color:var(--muted)}
+.cal-picker .cp-day.in-month{color:var(--text)}
+.cal-picker .cp-day.picked{background:var(--accent);color:#fff;font-weight:700}
+.cal-picker .cp-day.today-mark{border:1px solid var(--accent)}
+.cp-count{font-size:12px;color:var(--accent);margin-top:6px;font-weight:600}
+
+/* Expense */
+.exp-item{display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--surface);border-radius:12px;margin-bottom:8px}
+.exp-item .exp-name{font-size:14px;font-weight:500}
+.exp-item .exp-amt{font-size:15px;font-weight:600;color:var(--red)}
+.exp-item .exp-cat{font-size:11px;color:var(--muted);margin-top:2px}
+.exp-add-row{display:flex;gap:8px;margin-bottom:12px}
+.exp-add-row input{flex:1;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;font-family:'DM Sans',sans-serif}
+.exp-add-row input:focus{border-color:var(--accent)}
+.exp-add-btn{background:var(--accent);border:none;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.budget-bar{height:12px;background:var(--surface);border-radius:6px;overflow:hidden;margin:8px 0}
+.budget-fill{height:100%;border-radius:6px;transition:width .3s}
 </style>
 </head>
 <body>
@@ -255,15 +276,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="period-tab active cal-sub-tab" data-caltab="calendar">Calendar</div>
       <div class="period-tab cal-sub-tab" data-caltab="schedule">Schedule</div>
     </div>
-
-    <!-- Calendar sub-tab -->
     <div id="caltab-calendar">
       <div class="date-nav"><button onclick="navCalMonth(-1)">‹</button><span class="date-label" id="calMonthLabel"></span><button onclick="navCalMonth(1)">›</button></div>
       <div class="mini-cal" id="calGrid"></div>
       <div style="margin-top:12px"><div class="card-title" id="calDayTitle">Selected Day</div><div id="calDayShifts"></div></div>
     </div>
-
-    <!-- Schedule sub-tab -->
     <div id="caltab-schedule" style="display:none">
       <div class="sched-summary" id="schedSummary"></div>
       <div id="schedContent"></div>
@@ -277,7 +294,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="period-tab active tax-sub-tab" data-subtab="ytd">YTD</div>
       <div class="period-tab tax-sub-tab" data-subtab="taxes">Tax Est.</div>
     </div>
-
     <div id="subtab-ytd">
       <div class="card">
         <div class="card-title">Year-to-Date Earnings (Worked Only)</div>
@@ -292,7 +308,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="card"><div class="card-title">Monthly Breakdown</div><div id="ytdMonthly"></div></div>
       <div class="card"><div class="card-title">By Job</div><div id="ytdByJob"></div></div>
     </div>
-
     <div id="subtab-taxes" style="display:none">
       <div class="card">
         <div class="card-title">Federal Income Tax</div>
@@ -323,8 +338,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           ⚠️ All figures based on actual worked/logged shifts only — no projections. Federal: flat 30% on gross (conservative). FICA: SS 6.2% + Medicare 1.45% on W-2, SE tax 15.3% on 1099. PA flat 3.07%, Camp Hill local ~1.05%. Not tax advice — consult a CPA.
         </div>
       </div>
-
-      <!-- Actual Taxes Paid -->
       <div class="card" style="border-color:var(--accent)">
         <div class="card-title" style="color:var(--accent)">Actual Taxes Paid (from Pay Stubs)</div>
         <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Enter what was actually withheld/paid per category this year.</div>
@@ -338,8 +351,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         </div>
         <div class="tax-total" style="margin-top:12px"><span class="t-label">Total Paid</span><span class="t-val" style="color:var(--accent)" id="totalPaid">$0</span></div>
       </div>
-
-      <!-- Surplus / Deficit -->
       <div class="card" id="surplusDeficitCard" style="display:none">
         <div class="card-title" id="sdTitle">Surplus / Deficit</div>
         <div id="sdBreakdown"></div>
@@ -348,6 +359,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
           <div style="flex:1"><div class="stat-label">Status</div><div class="stat-big" id="sdStatus" style="font-size:16px">—</div></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- EXPENSES -->
+  <div id="screen-expenses" class="screen">
+    <div class="header"><h1>Expenses</h1></div>
+    <div class="card">
+      <div class="card-title">Monthly Budget vs Take-Home</div>
+      <div style="display:flex;gap:16px;margin-bottom:8px">
+        <div style="flex:1"><div class="stat-label">Monthly Expenses</div><div class="stat-big" style="color:var(--red)" id="expTotal">$0</div></div>
+        <div style="flex:1"><div class="stat-label">Avg Take-Home</div><div class="stat-big" style="color:var(--green)" id="expTakeHome">$0</div></div>
+      </div>
+      <div class="budget-bar"><div class="budget-fill" id="budgetBar" style="width:0%;background:var(--green)"></div></div>
+      <div class="stat-row"><span class="stat-label">Monthly Surplus/Deficit</span><span class="stat-value" id="expDiff">$0</span></div>
+      <div class="stat-row" id="expShiftsNeeded" style="display:none"><span class="stat-label">Extra shifts needed</span><span class="stat-value" style="color:var(--orange)" id="expShiftsVal">0</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Add Expense</div>
+      <div class="exp-add-row">
+        <input type="text" id="expName" placeholder="Name (e.g. Rent)">
+        <input type="number" id="expAmt" placeholder="$ Amount" inputmode="decimal" style="max-width:100px">
+        <button class="exp-add-btn" onclick="addExpense()">+</button>
+      </div>
+    </div>
+    <div class="card" id="expAutoCard" style="display:none">
+      <div class="card-title">Auto-Calculated</div>
+      <div id="expAutoList"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Your Expenses</div>
+      <div id="expList"></div>
     </div>
   </div>
 
@@ -371,14 +413,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
     <div class="card">
       <div class="card-title">Data</div>
-      <button class="btn btn-secondary" onclick="exportData()" style="margin-bottom:8px">Export Data (JSON)</button>
+      <button class="btn btn-secondary" onclick="exportData()" style="margin-bottom:8px">Export Data (JSON Backup)</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()" style="margin-bottom:8px">Import / Restore Backup</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5">Tip: Export a backup before updating the app. If data is ever lost, use Import to restore it.</div>
       <button class="btn btn-danger" onclick="if(confirm('Delete ALL data? This cannot be undone.')){localStorage.clear();location.reload()}">Reset All Data</button>
     </div>
   </div>
 </div>
 </div>
 
-<!-- NAV -->
+<!-- NAV — 6 tabs -->
 <nav class="nav" id="mainNav">
   <button class="nav-btn active" data-screen="dashboard">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>Home
@@ -388,6 +433,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </button>
   <button class="nav-btn" data-screen="tax">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Tax
+  </button>
+  <button class="nav-btn" data-screen="expenses">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>Bills
   </button>
   <button class="nav-btn" data-screen="jobs">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>Jobs
@@ -407,36 +455,46 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="form-group"><label>Break (minutes)</label><input type="number" id="shiftBreak" value="0" min="0"></div>
   <div class="form-group"><label>Notes (optional)</label><input type="text" id="shiftNotes" placeholder="e.g. covered for Mike"></div>
 
+  <!-- Overtime -->
+  <div class="toggle-row">
+    <span class="toggle-label">Overtime</span>
+    <div class="toggle" id="otToggle" onclick="toggleOT()"></div>
+  </div>
+  <div id="otOptions" style="display:none">
+    <div class="form-group"><label>OT Hours (of total shift)</label><input type="number" id="shiftOTHours" step="0.25" min="0" placeholder="e.g. 4"></div>
+    <div class="form-group"><label>OT Rate ($/hr) — defaults to 1.5x base</label><input type="number" id="shiftOTRate" step="0.01" placeholder="Auto" inputmode="decimal"></div>
+  </div>
+
   <!-- Recurring -->
   <div class="toggle-row" id="recurringToggleRow">
     <span class="toggle-label">Recurring</span>
     <div class="toggle" id="recurringToggle" onclick="toggleRecurring()"></div>
   </div>
   <div id="recurringOptions" style="display:none">
-    <div class="form-group"><label>Repeat on</label>
-      <div class="day-chips" id="recurDayChips">
-        <div class="day-chip" data-dow="0" onclick="toggleDayChip(this)">S</div>
-        <div class="day-chip" data-dow="1" onclick="toggleDayChip(this)">M</div>
-        <div class="day-chip" data-dow="2" onclick="toggleDayChip(this)">T</div>
-        <div class="day-chip" data-dow="3" onclick="toggleDayChip(this)">W</div>
-        <div class="day-chip" data-dow="4" onclick="toggleDayChip(this)">T</div>
-        <div class="day-chip" data-dow="5" onclick="toggleDayChip(this)">F</div>
-        <div class="day-chip" data-dow="6" onclick="toggleDayChip(this)">S</div>
+    <div class="form-group"><label>Select dates on calendar</label></div>
+    <div class="cal-picker" id="recurCalPicker">
+      <div class="cp-nav">
+        <button onclick="navRecurCal(-1)">‹</button>
+        <span id="recurCalLabel"></span>
+        <button onclick="navRecurCal(1)">›</button>
       </div>
-    </div>
-    <div class="toggle-row">
-      <span class="toggle-label">Indefinitely</span>
-      <div class="toggle" id="indefiniteToggle" onclick="toggleIndefinite()"></div>
-    </div>
-    <div class="form-group" id="repeatUntilGroup">
-      <label>Repeat until</label>
-      <input type="date" id="repeatUntil">
+      <div class="cp-grid" id="recurCalGrid"></div>
+      <div class="cp-count" id="recurCalCount">0 dates selected</div>
     </div>
   </div>
 
   <button class="btn btn-primary" onclick="saveShift()">Save Shift</button>
   <button class="btn btn-danger" id="deleteShiftBtn" style="display:none" onclick="deleteShift()">Delete Shift</button>
   <button class="btn btn-secondary" style="margin-top:8px" onclick="closeModal('shiftModal')">Cancel</button>
+</div></div>
+
+<!-- Delete Shift Confirmation (for recurring) -->
+<div class="modal-overlay" id="deleteConfirmModal"><div class="modal" style="text-align:center;padding-top:30px">
+  <h2 style="margin-bottom:8px">Delete Shift</h2>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:20px">This shift is part of a recurring series.</p>
+  <button class="btn btn-danger" style="margin-top:0" onclick="confirmDeleteShift('single')">Delete Just This One</button>
+  <button class="btn btn-danger" onclick="confirmDeleteShift('future')">Delete All Future in Series</button>
+  <button class="btn btn-secondary" onclick="closeModal('deleteConfirmModal')">Cancel</button>
 </div></div>
 
 <!-- Job Modal -->
@@ -466,10 +524,22 @@ function updateDots(){document.querySelectorAll('.pin-dot').forEach((d,i)=>{d.cl
 function unlock(){document.getElementById('lockScreen').classList.add('hidden');document.getElementById('app').classList.add('unlocked');document.getElementById('mainNav').classList.add('show');load();renderDashboard()}
 
 // ─── STATE ───
-let state={jobs:[],shifts:[],settings:{otThreshold:40,otMultiplier:1.5,weekStart:0},taxPayments:[]};
+let state={jobs:[],shifts:[],settings:{otThreshold:40,otMultiplier:1.5,weekStart:0},taxPayments:[],expenses:[]};
 let currentPeriod='day',periodOffset=0,calMonth=new Date().getMonth(),calYear=new Date().getFullYear(),selectedCalDate=toDateStr(new Date()),editingShiftId=null,editingJobId=null;
 
-function load(){try{const d=localStorage.getItem('nursex');if(d)state=JSON.parse(d)}catch(e){}if(!state.taxPayments)state.taxPayments=[];document.getElementById('otThreshold').value=state.settings.otThreshold;document.getElementById('otMultiplier').value=state.settings.otMultiplier;document.getElementById('weekStart').value=state.settings.weekStart}
+function load(){
+  try{
+    let d=localStorage.getItem('nursex');
+    if(!d){d=localStorage.getItem('shifttrack');if(d){localStorage.setItem('nursex',d);localStorage.removeItem('shifttrack')}}
+    if(d)state=JSON.parse(d);
+  }catch(e){}
+  if(!state.taxPayments)state.taxPayments=[];
+  if(!state.expenses)state.expenses=[];
+  if(!state.settings)state.settings={otThreshold:40,otMultiplier:1.5,weekStart:0};
+  document.getElementById('otThreshold').value=state.settings.otThreshold;
+  document.getElementById('otMultiplier').value=state.settings.otMultiplier;
+  document.getElementById('weekStart').value=state.settings.weekStart;
+}
 function save(){localStorage.setItem('nursex',JSON.stringify(state))}
 
 // ─── HELPERS ───
@@ -485,24 +555,40 @@ function calcHours(start,end,breakMin){
   const[sh,sm]=start.split(':').map(Number);const[eh,em]=end.split(':').map(Number);
   let mins=(eh*60+em)-(sh*60+sm);if(mins<0)mins+=24*60;mins-=(breakMin||0);return Math.max(0,mins/60);
 }
+
+// Calculate shift pay including OT
+function calcShiftPay(s){
+  const h=calcHours(s.start,s.end,s.breakMin);
+  const job=getJobById(s.jobId);
+  const baseRate=job?job.rate:0;
+  if(s.otHours&&s.otHours>0){
+    const otRate=s.otRate||(baseRate*1.5);
+    const regHours=Math.max(0,h-s.otHours);
+    return{hours:h,regHours,otHours:s.otHours,regPay:regHours*baseRate,otPay:s.otHours*otRate,totalPay:regHours*baseRate+s.otHours*otRate,otRate};
+  }
+  return{hours:h,regHours:h,otHours:0,regPay:h*baseRate,otPay:0,totalPay:h*baseRate,otRate:0};
+}
+
 function getWeekRange(date){const d=new Date(date);const day=d.getDay();const ws=state.settings.weekStart;const diff=(day-ws+7)%7;const start=new Date(d);start.setDate(d.getDate()-diff);const end=new Date(start);end.setDate(start.getDate()+6);return{start:toDateStr(start),end:toDateStr(end)}}
 function getMonthRange(y,m){return{start:toDateStr(new Date(y,m,1)),end:toDateStr(new Date(y,m+1,0))}}
 function shiftsInRange(s,e){return state.shifts.filter(x=>x.date>=s&&x.date<=e)}
 function getJobById(id){return state.jobs.find(j=>j.id===id)}
 
 function computeSummary(shifts){
-  let hours=0,earnings=0,futureHours=0,futureEarnings=0,futureCount=0,pastCount=0;const byJob={};
+  let hours=0,earnings=0,otHoursTotal=0,otEarnings=0,futureHours=0,futureEarnings=0,futureCount=0,pastCount=0;const byJob={};
   const today=todayStr();
   shifts.forEach(s=>{
-    const h=calcHours(s.start,s.end,s.breakMin);const job=getJobById(s.jobId);const rate=job?job.rate:0;
+    const pay=calcShiftPay(s);
     const past=s.date<=today;
-    if(past){hours+=h;earnings+=h*rate;pastCount++}else{futureCount++;futureHours+=h;futureEarnings+=h*rate}
+    if(past){hours+=pay.hours;earnings+=pay.totalPay;otHoursTotal+=pay.otHours;otEarnings+=pay.otPay;pastCount++}
+    else{futureCount++;futureHours+=pay.hours;futureEarnings+=pay.totalPay}
     if(past){
+      const job=getJobById(s.jobId);
       if(!byJob[s.jobId])byJob[s.jobId]={hours:0,earnings:0,name:job?job.name:'Unknown',color:job?job.color:'#666'};
-      byJob[s.jobId].hours+=h;byJob[s.jobId].earnings+=h*rate;
+      byJob[s.jobId].hours+=pay.hours;byJob[s.jobId].earnings+=pay.totalPay;
     }
   });
-  return{hours,earnings,futureHours,futureEarnings,pastCount,futureCount,byJob};
+  return{hours,earnings,otHoursTotal,otEarnings,futureHours,futureEarnings,pastCount,futureCount,byJob};
 }
 
 // ─── TAX ───
@@ -532,19 +618,19 @@ function getYTDEarnings(){
   let totalHours=0,totalEarnings=0,w2Earnings=0,contractorEarnings=0;
   const byJob={},byMonth={};
   pastShifts.forEach(s=>{
-    const h=calcHours(s.start,s.end,s.breakMin);const job=getJobById(s.jobId);const rate=job?job.rate:0;const pay=h*rate;
+    const pay=calcShiftPay(s);const job=getJobById(s.jobId);
     const isContractor=job&&job.type==='contractor';
-    totalHours+=h;totalEarnings+=pay;
-    if(isContractor)contractorEarnings+=pay;else w2Earnings+=pay;
+    totalHours+=pay.hours;totalEarnings+=pay.totalPay;
+    if(isContractor)contractorEarnings+=pay.totalPay;else w2Earnings+=pay.totalPay;
     if(!byJob[s.jobId])byJob[s.jobId]={hours:0,earnings:0,name:job?job.name:'Unknown',color:job?job.color:'#666',type:job?job.type:'w2'};
-    byJob[s.jobId].hours+=h;byJob[s.jobId].earnings+=pay;
-    const mk=s.date.substring(0,7);if(!byMonth[mk])byMonth[mk]={hours:0,earnings:0};byMonth[mk].hours+=h;byMonth[mk].earnings+=pay;
+    byJob[s.jobId].hours+=pay.hours;byJob[s.jobId].earnings+=pay.totalPay;
+    const mk=s.date.substring(0,7);if(!byMonth[mk])byMonth[mk]={hours:0,earnings:0};byMonth[mk].hours+=pay.hours;byMonth[mk].earnings+=pay.totalPay;
   });
   return{totalHours,totalEarnings,w2Earnings,contractorEarnings,byJob,byMonth,shiftCount:pastShifts.length};
 }
 
 // ─── NAV ───
-document.querySelectorAll('.nav-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+btn.dataset.screen).classList.add('active');if(btn.dataset.screen==='calendar')renderCalendar();if(btn.dataset.screen==='jobs')renderJobs();if(btn.dataset.screen==='dashboard')renderDashboard();if(btn.dataset.screen==='tax')renderTax()})});
+document.querySelectorAll('.nav-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+btn.dataset.screen).classList.add('active');if(btn.dataset.screen==='calendar')renderCalendar();if(btn.dataset.screen==='jobs')renderJobs();if(btn.dataset.screen==='dashboard')renderDashboard();if(btn.dataset.screen==='tax')renderTax();if(btn.dataset.screen==='expenses')renderExpenses()})});
 document.querySelectorAll('.tax-sub-tab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.tax-sub-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');document.getElementById('subtab-ytd').style.display=tab.dataset.subtab==='ytd'?'block':'none';document.getElementById('subtab-taxes').style.display=tab.dataset.subtab==='taxes'?'block':'none'})});
 document.querySelectorAll('.cal-sub-tab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.cal-sub-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');document.getElementById('caltab-calendar').style.display=tab.dataset.caltab==='calendar'?'block':'none';document.getElementById('caltab-schedule').style.display=tab.dataset.caltab==='schedule'?'block':'none';if(tab.dataset.caltab==='schedule')renderSchedule()})});
 document.querySelectorAll('.period-tab:not(.tax-sub-tab):not(.cal-sub-tab)').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.period-tab:not(.tax-sub-tab):not(.cal-sub-tab)').forEach(t=>t.classList.remove('active'));tab.classList.add('active');currentPeriod=tab.dataset.period;periodOffset=0;renderDashboard()})});
@@ -566,17 +652,18 @@ function renderDashboard(){
   document.getElementById('summaryEarnings').textContent=formatMoney(summary.earnings);
   document.getElementById('summaryShifts').textContent=summary.pastCount;
 
-  // Unearned (future scheduled shifts in this period)
+  // Unearned
   const unearnedRow=document.getElementById('unearnedRow');
   if(summary.futureCount>0){unearnedRow.style.display='block';document.getElementById('unearnedHours').textContent=summary.futureHours.toFixed(1);document.getElementById('unearnedPay').textContent=formatMoney(summary.futureEarnings)}else{unearnedRow.style.display='none'}
 
   const schedRow=document.getElementById('scheduledRow');
   if(summary.futureCount>0){schedRow.style.display='flex';document.getElementById('summaryScheduled').textContent=summary.futureCount}else{schedRow.style.display='none'}
 
+  // OT display
   const otRow=document.getElementById('overtimeRow');
-  if(currentPeriod==='week'){const ot=Math.max(0,summary.hours-state.settings.otThreshold);otRow.style.display=ot>0?'flex':'none';document.getElementById('summaryOT').textContent=ot.toFixed(1);if(ot>0){const maxRate=Math.max(...state.jobs.map(j=>j.rate||0),0);document.getElementById('summaryEarnings').textContent=formatMoney(summary.earnings+ot*maxRate*(state.settings.otMultiplier-1))}}else{otRow.style.display='none'}
+  if(summary.otHoursTotal>0){otRow.style.display='flex';document.getElementById('summaryOT').textContent=summary.otHoursTotal.toFixed(1)}else{otRow.style.display='none'}
 
-  // YTD compact block (day view only)
+  // YTD compact (day view only)
   const ytdBlock=document.getElementById('ytdCompactBlock');
   if(currentPeriod==='day'){
     const ytd=getYTDEarnings();
@@ -593,7 +680,7 @@ function renderDashboard(){
   const listEl=document.getElementById('shiftsList');
   const sorted=[...shifts].sort((a,b)=>{if(a.date!==b.date)return a.date>b.date?-1:1;return a.start>b.start?-1:1});
   if(sorted.length===0){listEl.innerHTML='<div class="empty-state"><p>No shifts for this period</p></div>'}
-  else{const td=todayStr();listEl.innerHTML=sorted.map(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);const future=s.date>td;const recur=s.recurringId?'<span class="shift-recurring-icon">↻</span>':'';return`<div class="shift-item${future?' shift-future':''}" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-day">${formatDate(s.date)}${recur}${future?' <span class="badge badge-future">Scheduled</span>':''}</div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay">${future?'('+formatMoney(pay)+')':formatMoney(pay)}</div></div></div>`}).join('')}
+  else{const td=todayStr();listEl.innerHTML=sorted.map(s=>{const job=getJobById(s.jobId);const pay=calcShiftPay(s);const future=s.date>td;const recur=s.recurringId?'<span class="shift-recurring-icon">↻</span>':'';const otBadge=s.otHours>0?'<span class="badge badge-ot">OT</span>':'';return`<div class="shift-item${future?' shift-future':''}" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-day">${formatDate(s.date)}${recur}${otBadge}${future?' <span class="badge badge-future">Scheduled</span>':''}</div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}${s.otHours>0?' · '+s.otHours+'h OT':''}</div></div><div class="shift-right"><div class="shift-hours">${pay.hours.toFixed(1)}h</div><div class="shift-pay">${future?'('+formatMoney(pay.totalPay)+')':formatMoney(pay.totalPay)}</div></div></div>`}).join('')}
 }
 
 // ─── TAX TAB ───
@@ -601,12 +688,10 @@ function renderTax(){
   const ytd=getYTDEarnings();
   document.getElementById('ytdGross').textContent=formatMoney(ytd.totalEarnings);
   document.getElementById('ytdHours').textContent=ytd.totalHours.toFixed(1);
-
   const ytdTaxes=calcAllTaxes(ytd.totalEarnings,ytd.w2Earnings,ytd.contractorEarnings);
   document.getElementById('ytdNet').textContent=formatMoney(ytdTaxes.takeHome);
   document.getElementById('ytdTaxTotal').textContent=formatMoney(ytdTaxes.grandTotal);
   document.getElementById('ytdEffRate').textContent=ytdTaxes.effectiveRate.toFixed(1)+'%';
-
   // Monthly
   const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const year=new Date().getFullYear();const monthlyEl=document.getElementById('ytdMonthly');
@@ -614,151 +699,143 @@ function renderTax(){
   for(let m=0;m<12;m++){const k=year+'-'+String(m+1).padStart(2,'0');const d=ytd.byMonth[k]||{hours:0,earnings:0};if(d.earnings>maxME)maxME=d.earnings;md.push({name:monthNames[m],hours:d.hours,earnings:d.earnings})}
   const cm=new Date().getMonth();
   monthlyEl.innerHTML=md.slice(0,cm+1).map(m=>{const pct=maxME>0?(m.earnings/maxME*100):0;return`<div class="ytd-month"><div class="ytd-month-header"><span>${m.name}</span><span style="color:var(--green)">${formatMoney(m.earnings)}</span></div><div class="ytd-month-detail"><span>${m.hours.toFixed(1)} hours</span></div><div class="ytd-bar"><div class="ytd-bar-fill" style="width:${pct}%"></div></div></div>`}).join('')||'<div class="empty-state"><p>No earned shifts yet this year</p></div>';
-
   // By job
   const jobEl=document.getElementById('ytdByJob');const jk=Object.keys(ytd.byJob);
   if(jk.length>0){jobEl.innerHTML=jk.map(jid=>{const j=ytd.byJob[jid];const pct=ytd.totalEarnings>0?(j.earnings/ytd.totalEarnings*100):0;return`<div class="breakdown-item"><div class="breakdown-label"><span>${j.name} <span style="font-size:10px;color:var(--muted)">${j.type==='contractor'?'(1099)':'(W-2)'}</span></span><span>${j.hours.toFixed(1)}h · ${formatMoney(j.earnings)}</span></div><div class="breakdown-bar"><div class="breakdown-fill" style="width:${pct}%;background:${j.color}"></div></div></div>`}).join('')}else{jobEl.innerHTML='<div class="empty-state"><p>No data</p></div>'}
-
-  // Tax Est — based on actual YTD only, no projections
+  // Tax Est
   const taxes=ytdTaxes;
-
-  // Federal
   const fedEl=document.getElementById('fedTaxBreakdown');
   fedEl.innerHTML=`<div class="tax-row"><div><div class="t-label">YTD Gross Income</div></div><div class="t-val positive">${formatMoney(ytd.totalEarnings)}</div></div><div class="tax-row"><div><div class="t-label">Flat 30% Withholding Rate</div><div class="t-sub">Conservative estimate to cover all income</div></div><div class="t-val">${formatMoney(taxes.fedTax)}</div></div>`;
   document.getElementById('fedTaxTotal').textContent=formatMoney(taxes.fedTax);
-
-  // FICA
   const ficaEl=document.getElementById('ficaBreakdown');let fh='';
   fh+=`<div class="tax-row"><div><div class="t-label">Social Security (W-2)</div><div class="t-sub">6.2% on wages up to $168,600</div></div><div class="t-val">${formatMoney(taxes.w2SS)}</div></div>`;
   fh+=`<div class="tax-row"><div><div class="t-label">Medicare (W-2)</div><div class="t-sub">1.45% on all wages</div></div><div class="t-val">${formatMoney(taxes.w2Medicare)}</div></div>`;
   if(ytd.contractorEarnings>0)fh+=`<div class="tax-row"><div><div class="t-label">Self-Employment Tax (1099)</div><div class="t-sub">15.3% on 92.35% of contractor income</div></div><div class="t-val">${formatMoney(taxes.seTax)}</div></div>`;
   if(taxes.medicareSurtax>0)fh+=`<div class="tax-row"><div><div class="t-label">Medicare Surtax</div><div class="t-sub">0.9% on income over $200k</div></div><div class="t-val">${formatMoney(taxes.medicareSurtax)}</div></div>`;
   ficaEl.innerHTML=fh;document.getElementById('ficaTotal').textContent=formatMoney(taxes.ficaTotal);
-
-  // State
   const stateEl=document.getElementById('stateTaxBreakdown');
   stateEl.innerHTML=`<div class="tax-row"><div><div class="t-label">PA State Income Tax</div><div class="t-sub">Flat 3.07%</div></div><div class="t-val">${formatMoney(taxes.paStateTax)}</div></div><div class="tax-row"><div><div class="t-label">Camp Hill Local EIT</div><div class="t-sub">~1.05% (municipality + school)</div></div><div class="t-val">${formatMoney(taxes.localTax)}</div></div>`;
   document.getElementById('stateTaxTotal').textContent=formatMoney(taxes.stateLocalTotal);
-
-  // Grand
   document.getElementById('totalTaxAnnual').textContent=formatMoney(taxes.grandTotal);
   const perShift=ytd.shiftCount>0?taxes.grandTotal/ytd.shiftCount:0;
   document.getElementById('totalTaxPer').textContent=formatMoney(perShift);
   document.getElementById('taxEffRate').textContent=taxes.effectiveRate.toFixed(1)+'%';
   document.getElementById('taxTakeHome').textContent=formatMoney(taxes.takeHome);
-
-  // Load actual paid inputs & surplus/deficit
   loadTaxPaymentInputs();renderSurplusDeficit();
 }
 
 // ─── TAX PAYMENTS ───
 function saveTaxPayment(){
   const year=new Date().getFullYear();
-  const entry={
-    year:year,
-    federal:parseFloat(document.getElementById('paidFederal').value)||0,
-    ss:parseFloat(document.getElementById('paidSS').value)||0,
-    medicare:parseFloat(document.getElementById('paidMedicare').value)||0,
-    se:parseFloat(document.getElementById('paidSE').value)||0,
-    state:parseFloat(document.getElementById('paidState').value)||0,
-    local:parseFloat(document.getElementById('paidLocal').value)||0
-  };
+  const entry={year,federal:parseFloat(document.getElementById('paidFederal').value)||0,ss:parseFloat(document.getElementById('paidSS').value)||0,medicare:parseFloat(document.getElementById('paidMedicare').value)||0,se:parseFloat(document.getElementById('paidSE').value)||0,state:parseFloat(document.getElementById('paidState').value)||0,local:parseFloat(document.getElementById('paidLocal').value)||0};
   const idx=state.taxPayments.findIndex(p=>p.year===year);
   if(idx>=0)state.taxPayments[idx]=entry;else state.taxPayments.push(entry);
   save();renderSurplusDeficit();
 }
-function getTaxPayment(){
-  const year=new Date().getFullYear();
-  return state.taxPayments.find(p=>p.year===year)||{federal:0,ss:0,medicare:0,se:0,state:0,local:0};
-}
+function getTaxPayment(){const year=new Date().getFullYear();return state.taxPayments.find(p=>p.year===year)||{federal:0,ss:0,medicare:0,se:0,state:0,local:0}}
 function loadTaxPaymentInputs(){
   const p=getTaxPayment();
-  document.getElementById('paidFederal').value=p.federal||'';
-  document.getElementById('paidSS').value=p.ss||'';
-  document.getElementById('paidMedicare').value=p.medicare||'';
-  document.getElementById('paidSE').value=p.se||'';
-  document.getElementById('paidState').value=p.state||'';
-  document.getElementById('paidLocal').value=p.local||'';
-  const total=p.federal+p.ss+p.medicare+p.se+p.state+p.local;
-  document.getElementById('totalPaid').textContent=formatMoney(total);
+  document.getElementById('paidFederal').value=p.federal||'';document.getElementById('paidSS').value=p.ss||'';
+  document.getElementById('paidMedicare').value=p.medicare||'';document.getElementById('paidSE').value=p.se||'';
+  document.getElementById('paidState').value=p.state||'';document.getElementById('paidLocal').value=p.local||'';
+  document.getElementById('totalPaid').textContent=formatMoney(p.federal+p.ss+p.medicare+p.se+p.state+p.local);
 }
 function renderSurplusDeficit(){
-  const ytd=getYTDEarnings();
-  const taxes=calcAllTaxes(ytd.totalEarnings,ytd.w2Earnings,ytd.contractorEarnings);
-  const p=getTaxPayment();
+  const ytd=getYTDEarnings();const taxes=calcAllTaxes(ytd.totalEarnings,ytd.w2Earnings,ytd.contractorEarnings);const p=getTaxPayment();
   const totalPaid=(p.federal||0)+(p.ss||0)+(p.medicare||0)+(p.se||0)+(p.state||0)+(p.local||0);
   document.getElementById('totalPaid').textContent=formatMoney(totalPaid);
   const card=document.getElementById('surplusDeficitCard');
   if(totalPaid===0){card.style.display='none';return}
   card.style.display='block';
-  const rows=[
-    {cat:'Federal',est:taxes.fedTax,paid:p.federal||0},
-    {cat:'Social Security',est:taxes.w2SS,paid:p.ss||0},
-    {cat:'Medicare',est:taxes.w2Medicare+(taxes.medicareSurtax||0),paid:p.medicare||0},
-    {cat:'SE Tax (1099)',est:taxes.seTax||0,paid:p.se||0},
-    {cat:'PA State',est:taxes.paStateTax,paid:p.state||0},
-    {cat:'Local',est:taxes.localTax,paid:p.local||0}
-  ];
+  const rows=[{cat:'Federal',est:taxes.fedTax,paid:p.federal||0},{cat:'Social Security',est:taxes.w2SS,paid:p.ss||0},{cat:'Medicare',est:taxes.w2Medicare+(taxes.medicareSurtax||0),paid:p.medicare||0},{cat:'SE Tax (1099)',est:taxes.seTax||0,paid:p.se||0},{cat:'PA State',est:taxes.paStateTax,paid:p.state||0},{cat:'Local',est:taxes.localTax,paid:p.local||0}];
   let html='<div style="display:flex;justify-content:space-between;padding:4px 0 8px;border-bottom:1px solid var(--border);margin-bottom:4px"><div style="flex:1;font-size:11px;color:var(--muted)">Category</div><div class="sd-vals"><div class="sd-est" style="font-size:11px;color:var(--muted)">Estimated</div><div class="sd-paid" style="font-size:11px;color:var(--muted)">Paid</div><div class="sd-diff" style="font-size:11px;color:var(--muted)">Diff</div></div></div>';
-  let totalEst=0,totalDiff=0;
-  rows.forEach(r=>{
-    if(r.est===0&&r.paid===0)return;
-    const diff=r.paid-r.est;totalEst+=r.est;totalDiff+=diff;
-    const col=diff>0?'var(--green)':diff<0?'var(--red)':'var(--muted)';
-    const sign=diff>0?'+':'';
-    html+=`<div class="sd-row"><div class="sd-cat">${r.cat}</div><div class="sd-vals"><div class="sd-est" style="color:var(--red)">${formatMoney(r.est)}</div><div class="sd-paid" style="color:var(--accent)">${formatMoney(r.paid)}</div><div class="sd-diff" style="color:${col};font-weight:600">${sign}${formatMoney(diff)}</div></div></div>`;
-  });
+  rows.forEach(r=>{if(r.est===0&&r.paid===0)return;const diff=r.paid-r.est;const col=diff>0?'var(--green)':diff<0?'var(--red)':'var(--muted)';const sign=diff>0?'+':'';html+=`<div class="sd-row"><div class="sd-cat">${r.cat}</div><div class="sd-vals"><div class="sd-est" style="color:var(--red)">${formatMoney(r.est)}</div><div class="sd-paid" style="color:var(--accent)">${formatMoney(r.paid)}</div><div class="sd-diff" style="color:${col};font-weight:600">${sign}${formatMoney(diff)}</div></div></div>`});
   document.getElementById('sdBreakdown').innerHTML=html;
-  const netDiff=totalPaid-taxes.grandTotal;
-  const col=netDiff>0?'var(--green)':netDiff<0?'var(--red)':'var(--muted)';
-  const sign=netDiff>0?'+':'';
-  document.getElementById('sdTotal').textContent=sign+formatMoney(netDiff);
-  document.getElementById('sdTotal').style.color=col;
-  if(netDiff>0){
-    document.getElementById('sdStatus').textContent='Overpaying';
-    document.getElementById('sdStatus').style.color='var(--green)';
-    card.style.borderColor='var(--green)';
-    document.getElementById('sdTitle').style.color='var(--green)';
-  }else if(netDiff<0){
-    document.getElementById('sdStatus').textContent='Underpaying';
-    document.getElementById('sdStatus').style.color='var(--red)';
-    card.style.borderColor='var(--red)';
-    document.getElementById('sdTitle').style.color='var(--red)';
-  }else{
-    document.getElementById('sdStatus').textContent='On Track';
-    document.getElementById('sdStatus').style.color='var(--green)';
-    card.style.borderColor='var(--green)';
-    document.getElementById('sdTitle').style.color='var(--green)';
-  }
+  const netDiff=totalPaid-taxes.grandTotal;const col=netDiff>0?'var(--green)':netDiff<0?'var(--red)':'var(--muted)';const sign=netDiff>0?'+':'';
+  document.getElementById('sdTotal').textContent=sign+formatMoney(netDiff);document.getElementById('sdTotal').style.color=col;
+  if(netDiff>0){document.getElementById('sdStatus').textContent='Overpaying';document.getElementById('sdStatus').style.color='var(--green)';card.style.borderColor='var(--green)';document.getElementById('sdTitle').style.color='var(--green)'}
+  else if(netDiff<0){document.getElementById('sdStatus').textContent='Underpaying';document.getElementById('sdStatus').style.color='var(--red)';card.style.borderColor='var(--red)';document.getElementById('sdTitle').style.color='var(--red)'}
+  else{document.getElementById('sdStatus').textContent='On Track';document.getElementById('sdStatus').style.color='var(--green)';card.style.borderColor='var(--green)';document.getElementById('sdTitle').style.color='var(--green)'}
+}
+
+// ─── EXPENSES ───
+function addExpense(){
+  const name=document.getElementById('expName').value.trim();const amt=parseFloat(document.getElementById('expAmt').value);
+  if(!name||isNaN(amt)||amt<=0){alert('Enter expense name and amount');return}
+  state.expenses.push({id:uid(),name,amount:amt});save();
+  document.getElementById('expName').value='';document.getElementById('expAmt').value='';
+  renderExpenses();
+}
+function deleteExpense(id){state.expenses=state.expenses.filter(e=>e.id!==id);save();renderExpenses()}
+function renderExpenses(){
+  // Calculate avg monthly take-home from YTD
+  const ytd=getYTDEarnings();const taxes=calcAllTaxes(ytd.totalEarnings,ytd.w2Earnings,ytd.contractorEarnings);
+  const monthsElapsed=new Date().getMonth()+1;
+  const avgMonthlyGross=ytd.totalEarnings/monthsElapsed;
+  const avgMonthlyTax=taxes.grandTotal/monthsElapsed;
+  const avgMonthlyTakeHome=avgMonthlyGross-avgMonthlyTax;
+
+  // 1099 quarterly tax estimate (monthly portion)
+  const quarterlyTaxMonthly=ytd.contractorEarnings>0?(calcAllTaxes(0,0,ytd.contractorEarnings).seTax/monthsElapsed):0;
+
+  // Sum expenses
+  let totalExpenses=state.expenses.reduce((sum,e)=>sum+e.amount,0);
+  const totalWithTax=totalExpenses+quarterlyTaxMonthly;
+
+  document.getElementById('expTotal').textContent=formatMoney(totalWithTax);
+  document.getElementById('expTakeHome').textContent=formatMoney(avgMonthlyTakeHome);
+
+  const diff=avgMonthlyTakeHome-totalWithTax;
+  const diffEl=document.getElementById('expDiff');
+  diffEl.textContent=(diff>=0?'+':'')+formatMoney(diff);
+  diffEl.style.color=diff>=0?'var(--green)':'var(--red)';
+
+  // Budget bar
+  const barPct=avgMonthlyTakeHome>0?Math.min(100,(totalWithTax/avgMonthlyTakeHome)*100):0;
+  const bar=document.getElementById('budgetBar');
+  bar.style.width=barPct+'%';
+  bar.style.background=barPct>100?'var(--red)':barPct>85?'var(--orange)':'var(--green)';
+
+  // Shifts needed
+  const shiftRow=document.getElementById('expShiftsNeeded');
+  if(diff<0){
+    shiftRow.style.display='flex';
+    const avgPayPerShift=ytd.shiftCount>0?avgMonthlyTakeHome*monthsElapsed/ytd.shiftCount:0;
+    const shiftsNeeded=avgPayPerShift>0?Math.ceil(Math.abs(diff)/avgPayPerShift):0;
+    document.getElementById('expShiftsVal').textContent=shiftsNeeded+' (~'+formatMoney(Math.abs(diff))+' short)';
+  }else{shiftRow.style.display='none'}
+
+  // Auto-calculated section (quarterly taxes)
+  const autoCard=document.getElementById('expAutoCard');
+  if(quarterlyTaxMonthly>0){
+    autoCard.style.display='block';
+    document.getElementById('expAutoList').innerHTML=`<div class="exp-item"><div><div class="exp-name">1099 SE Tax (monthly est.)</div><div class="exp-cat">Auto-calculated from Tax tab</div></div><div class="exp-amt">${formatMoney(quarterlyTaxMonthly)}</div></div>`;
+  }else{autoCard.style.display='none'}
+
+  // Expense list
+  const listEl=document.getElementById('expList');
+  if(state.expenses.length===0){listEl.innerHTML='<div class="empty-state" style="padding:20px"><p>No expenses yet. Add your monthly bills above.</p></div>'}
+  else{listEl.innerHTML=state.expenses.map(e=>`<div class="exp-item" onclick="if(confirm('Delete ${e.name}?'))deleteExpense('${e.id}')"><div><div class="exp-name">${e.name}</div></div><div class="exp-amt">${formatMoney(e.amount)}</div></div>`).join('')}
 }
 
 // ─── SCHEDULE VIEW ───
 function renderSchedule(){
   const td=todayStr();const today=new Date();
   const weekRange=getWeekRange(today);const monthRange=getMonthRange(today.getFullYear(),today.getMonth());
-
   const weekShifts=state.shifts.filter(s=>s.date>td&&s.date>=weekRange.start&&s.date<=weekRange.end).sort((a,b)=>a.date>b.date?1:-1);
   const monthShifts=state.shifts.filter(s=>s.date>td&&s.date>=monthRange.start&&s.date<=monthRange.end).sort((a,b)=>a.date>b.date?1:-1);
-
   let weekHrs=0,weekPay=0,monthHrs=0,monthPay=0;
-  weekShifts.forEach(s=>{const h=calcHours(s.start,s.end,s.breakMin);const job=getJobById(s.jobId);weekHrs+=h;weekPay+=h*(job?job.rate:0)});
-  monthShifts.forEach(s=>{const h=calcHours(s.start,s.end,s.breakMin);const job=getJobById(s.jobId);monthHrs+=h;monthPay+=h*(job?job.rate:0)});
-
-  document.getElementById('schedSummary').innerHTML=`
-    <div class="sched-summary-card"><div class="ss-label">This Week</div><div class="ss-val">${weekHrs.toFixed(1)}h</div><div style="color:var(--green);font-size:14px;font-weight:600;margin-top:2px">${formatMoney(weekPay)}</div></div>
-    <div class="sched-summary-card"><div class="ss-label">This Month</div><div class="ss-val">${monthHrs.toFixed(1)}h</div><div style="color:var(--green);font-size:14px;font-weight:600;margin-top:2px">${formatMoney(monthPay)}</div></div>`;
-
-  let html='';
-  html+=renderSchedSection('This Week',weekShifts);
-  html+=renderSchedSection('This Month',monthShifts);
+  weekShifts.forEach(s=>{const p=calcShiftPay(s);weekHrs+=p.hours;weekPay+=p.totalPay});
+  monthShifts.forEach(s=>{const p=calcShiftPay(s);monthHrs+=p.hours;monthPay+=p.totalPay});
+  document.getElementById('schedSummary').innerHTML=`<div class="sched-summary-card"><div class="ss-label">This Week</div><div class="ss-val">${weekHrs.toFixed(1)}h</div><div style="color:var(--green);font-size:14px;font-weight:600;margin-top:2px">${formatMoney(weekPay)}</div></div><div class="sched-summary-card"><div class="ss-label">This Month</div><div class="ss-val">${monthHrs.toFixed(1)}h</div><div style="color:var(--green);font-size:14px;font-weight:600;margin-top:2px">${formatMoney(monthPay)}</div></div>`;
+  let html='';html+=renderSchedSection('This Week',weekShifts);html+=renderSchedSection('This Month',monthShifts);
   document.getElementById('schedContent').innerHTML=html||'<div class="empty-state"><p>No upcoming shifts scheduled</p></div>';
 }
-
 function renderSchedSection(title,shifts){
   if(shifts.length===0)return'';
   let html=`<div class="sched-section"><div class="card-title">${title}</div>`;
-  shifts.forEach(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);const recur=s.recurringId?'<span class="shift-recurring-icon">↻</span>':'';
-    html+=`<div class="shift-item" style="border-left-color:${job?job.color:'#666'}"><div><div class="shift-day">${formatDate(s.date)}${recur}</div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay" style="color:var(--green)">${formatMoney(pay)}</div></div></div>`});
+  shifts.forEach(s=>{const job=getJobById(s.jobId);const pay=calcShiftPay(s);const recur=s.recurringId?'<span class="shift-recurring-icon">↻</span>':'';
+    html+=`<div class="shift-item" style="border-left-color:${job?job.color:'#666'}"><div><div class="shift-day">${formatDate(s.date)}${recur}</div><div class="shift-time">${s.start} – ${s.end}</div><div class="shift-job">${job?job.name:'Unknown'}</div></div><div class="shift-right"><div class="shift-hours">${pay.hours.toFixed(1)}h</div><div class="shift-pay" style="color:var(--green)">${formatMoney(pay.totalPay)}</div></div></div>`});
   html+='</div>';return html;
 }
 
@@ -778,36 +855,49 @@ function selectCalDay(ds){selectedCalDate=ds;renderCalendar()}
 function renderCalDayShifts(){
   document.getElementById('calDayTitle').textContent=formatDate(selectedCalDate);const dayShifts=state.shifts.filter(s=>s.date===selectedCalDate);const el=document.getElementById('calDayShifts');const td=todayStr();
   if(dayShifts.length===0){el.innerHTML='<div class="empty-state" style="padding:20px"><p>No shifts</p></div>';return}
-  el.innerHTML=dayShifts.map(s=>{const job=getJobById(s.jobId);const h=calcHours(s.start,s.end,s.breakMin);const pay=h*(job?job.rate:0);const future=s.date>td;const recur=s.recurringId?'<span class="shift-recurring-icon">↻</span>':'';return`<div class="shift-item${future?' shift-future':''}" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-time">${s.start} – ${s.end}${recur}${future?' <span class="badge badge-future">Scheduled</span>':''}</div><div class="shift-job">${job?job.name:'Unknown'}${s.notes?' · '+s.notes:''}</div></div><div class="shift-right"><div class="shift-hours">${h.toFixed(1)}h</div><div class="shift-pay">${future?'('+formatMoney(pay)+')':formatMoney(pay)}</div></div></div>`}).join('')
+  el.innerHTML=dayShifts.map(s=>{const job=getJobById(s.jobId);const pay=calcShiftPay(s);const future=s.date>td;const recur=s.recurringId?'<span class="shift-recurring-icon">↻</span>':'';const otBadge=s.otHours>0?'<span class="badge badge-ot">OT</span>':'';return`<div class="shift-item${future?' shift-future':''}" style="border-left-color:${job?job.color:'#666'}" onclick="openEditShift('${s.id}')"><div><div class="shift-time">${s.start} – ${s.end}${recur}${otBadge}${future?' <span class="badge badge-future">Scheduled</span>':''}</div><div class="shift-job">${job?job.name:'Unknown'}${s.notes?' · '+s.notes:''}</div></div><div class="shift-right"><div class="shift-hours">${pay.hours.toFixed(1)}h</div><div class="shift-pay">${future?'('+formatMoney(pay.totalPay)+')':formatMoney(pay.totalPay)}</div></div></div>`}).join('')
 }
 
 // ─── JOBS ───
 function renderJobs(){
   const el=document.getElementById('jobsList');const td=todayStr();
   if(state.jobs.length===0){el.innerHTML='<div class="empty-state"><p>No jobs yet. Add your first job to get started.</p></div>';return}
-  el.innerHTML=state.jobs.map(j=>{const jobShifts=state.shifts.filter(s=>s.jobId===j.id&&s.date<=td);const totalH=jobShifts.reduce((sum,s)=>sum+calcHours(s.start,s.end,s.breakMin),0);const typeLabel=j.type==='contractor'?'1099':j.type==='rotating'?'Rotating':j.type==='prn'?'PRN':'Fixed';return`<div class="card" onclick="openEditJob('${j.id}')" style="cursor:pointer;border-left:3px solid ${j.color}"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:16px">${j.name}</div><div style="color:var(--muted);font-size:13px;margin-top:4px">${formatMoney(j.rate)}/hr · ${typeLabel}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600">${totalH.toFixed(1)}h</div><div style="color:var(--green);font-size:13px">${formatMoney(totalH*j.rate)}</div><div style="color:var(--muted);font-size:11px">earned</div></div></div></div>`}).join('')
+  el.innerHTML=state.jobs.map(j=>{const jobShifts=state.shifts.filter(s=>s.jobId===j.id&&s.date<=td);let totalEarned=0,totalH=0;jobShifts.forEach(s=>{const p=calcShiftPay(s);totalH+=p.hours;totalEarned+=p.totalPay});const typeLabel=j.type==='contractor'?'1099':j.type==='rotating'?'Rotating':j.type==='prn'?'PRN':'Fixed';return`<div class="card" onclick="openEditJob('${j.id}')" style="cursor:pointer;border-left:3px solid ${j.color}"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:16px">${j.name}</div><div style="color:var(--muted);font-size:13px;margin-top:4px">${formatMoney(j.rate)}/hr · ${typeLabel}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600">${totalH.toFixed(1)}h</div><div style="color:var(--green);font-size:13px">${formatMoney(totalEarned)}</div><div style="color:var(--muted);font-size:11px">earned</div></div></div></div>`}).join('')
 }
 
-// ─── RECURRING SHIFT LOGIC ───
-let recurringOn=false,indefiniteOn=false;
-function toggleRecurring(){recurringOn=!recurringOn;document.getElementById('recurringToggle').classList.toggle('on',recurringOn);document.getElementById('recurringOptions').style.display=recurringOn?'block':'none'}
-function toggleIndefinite(){indefiniteOn=!indefiniteOn;document.getElementById('indefiniteToggle').classList.toggle('on',indefiniteOn);document.getElementById('repeatUntilGroup').style.display=indefiniteOn?'none':'block'}
-function toggleDayChip(el){el.classList.toggle('active')}
-function getSelectedDays(){return[...document.querySelectorAll('.day-chip.active')].map(c=>parseInt(c.dataset.dow))}
-
-function generateRecurringShifts(baseShift,days,endDate){
-  const shifts=[];const rid=uid();
-  const start=new Date(parseDate(baseShift.date));start.setDate(start.getDate()+1);// start from day after
-  const end=endDate?parseDate(endDate):new Date(start.getFullYear(),start.getMonth()+6,start.getDate());// 6mo max if indefinite
-  const cur=new Date(start);
-  while(cur<=end&&shifts.length<500){// safety cap
-    if(days.includes(cur.getDay())){
-      shifts.push({...baseShift,id:uid(),date:toDateStr(cur),recurringId:rid});
-    }
-    cur.setDate(cur.getDate()+1);
+// ─── OT TOGGLE ───
+let otOn=false;
+function toggleOT(){otOn=!otOn;document.getElementById('otToggle').classList.toggle('on',otOn);document.getElementById('otOptions').style.display=otOn?'block':'none';
+  if(otOn){
+    // Auto-fill OT rate based on selected job
+    const jobId=document.getElementById('shiftJob').value;const job=getJobById(jobId);
+    if(job&&!document.getElementById('shiftOTRate').value){document.getElementById('shiftOTRate').placeholder=(job.rate*1.5).toFixed(2)}
   }
-  return shifts;
 }
+
+// ─── RECURRING — Calendar Picker ───
+let recurringOn=false,recurCalMonth,recurCalYear,pickedDates=new Set();
+
+function toggleRecurring(){recurringOn=!recurringOn;document.getElementById('recurringToggle').classList.toggle('on',recurringOn);document.getElementById('recurringOptions').style.display=recurringOn?'block':'none';
+  if(recurringOn){const d=new Date();recurCalMonth=d.getMonth();recurCalYear=d.getFullYear();pickedDates=new Set();renderRecurCal()}
+}
+function navRecurCal(dir){recurCalMonth+=dir;if(recurCalMonth>11){recurCalMonth=0;recurCalYear++}if(recurCalMonth<0){recurCalMonth=11;recurCalYear--}renderRecurCal()}
+function renderRecurCal(){
+  document.getElementById('recurCalLabel').textContent=new Date(recurCalYear,recurCalMonth).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const ws=state.settings.weekStart;const dayNames=['Su','Mo','Tu','We','Th','Fr','Sa'];const reordered=[...dayNames.slice(ws),...dayNames.slice(0,ws)];
+  const firstDay=new Date(recurCalYear,recurCalMonth,1);const lastDay=new Date(recurCalYear,recurCalMonth+1,0);const startDow=(firstDay.getDay()-ws+7)%7;const td=todayStr();
+  let html=reordered.map(d=>`<div class="cp-hdr">${d}</div>`).join('');
+  const prevLast=new Date(recurCalYear,recurCalMonth,0);
+  for(let i=startDow-1;i>=0;i--){html+=`<div class="cp-day"></div>`}
+  for(let d=1;d<=lastDay.getDate();d++){
+    const ds=toDateStr(new Date(recurCalYear,recurCalMonth,d));
+    const picked=pickedDates.has(ds);const isToday=ds===td;
+    html+=`<div class="cp-day in-month${picked?' picked':''}${isToday?' today-mark':''}" onclick="togglePickDate('${ds}')">${d}</div>`;
+  }
+  document.getElementById('recurCalGrid').innerHTML=html;
+  document.getElementById('recurCalCount').textContent=pickedDates.size+' date'+(pickedDates.size!==1?'s':'')+' selected';
+}
+function togglePickDate(ds){if(pickedDates.has(ds))pickedDates.delete(ds);else pickedDates.add(ds);renderRecurCal()}
 
 // ─── MODALS ───
 function openModal(id){document.getElementById(id).classList.add('show')}
@@ -817,13 +907,13 @@ function openAddShift(){
   editingShiftId=null;document.getElementById('shiftModalTitle').textContent='Add Shift';document.getElementById('deleteShiftBtn').style.display='none';
   populateJobSelect();document.getElementById('shiftDate').value=selectedCalDate||todayStr();
   document.getElementById('shiftStart').value='';document.getElementById('shiftEnd').value='';document.getElementById('shiftBreak').value='0';document.getElementById('shiftNotes').value='';
+  // Reset OT
+  otOn=false;document.getElementById('otToggle').classList.remove('on');document.getElementById('otOptions').style.display='none';
+  document.getElementById('shiftOTHours').value='';document.getElementById('shiftOTRate').value='';document.getElementById('shiftOTRate').placeholder='Auto';
   // Reset recurring
-  recurringOn=false;indefiniteOn=false;
-  document.getElementById('recurringToggle').classList.remove('on');document.getElementById('indefiniteToggle').classList.remove('on');
-  document.getElementById('recurringOptions').style.display='none';document.getElementById('repeatUntilGroup').style.display='block';
-  document.getElementById('recurringToggleRow').style.display='flex';
-  document.querySelectorAll('.day-chip').forEach(c=>c.classList.remove('active'));
-  document.getElementById('repeatUntil').value='';
+  recurringOn=false;document.getElementById('recurringToggle').classList.remove('on');
+  document.getElementById('recurringOptions').style.display='none';document.getElementById('recurringToggleRow').style.display='flex';
+  pickedDates=new Set();
   openModal('shiftModal');
 }
 
@@ -833,6 +923,9 @@ function openEditShift(id){
   populateJobSelect();document.getElementById('shiftJob').value=s.jobId;document.getElementById('shiftDate').value=s.date;
   document.getElementById('shiftStart').value=s.start;document.getElementById('shiftEnd').value=s.end;
   document.getElementById('shiftBreak').value=s.breakMin||0;document.getElementById('shiftNotes').value=s.notes||'';
+  // OT
+  if(s.otHours&&s.otHours>0){otOn=true;document.getElementById('otToggle').classList.add('on');document.getElementById('otOptions').style.display='block';document.getElementById('shiftOTHours').value=s.otHours;document.getElementById('shiftOTRate').value=s.otRate||'';const job=getJobById(s.jobId);document.getElementById('shiftOTRate').placeholder=job?(job.rate*1.5).toFixed(2):'Auto'}
+  else{otOn=false;document.getElementById('otToggle').classList.remove('on');document.getElementById('otOptions').style.display='none';document.getElementById('shiftOTHours').value='';document.getElementById('shiftOTRate').value=''}
   // Hide recurring when editing
   recurringOn=false;document.getElementById('recurringToggle').classList.remove('on');
   document.getElementById('recurringOptions').style.display='none';document.getElementById('recurringToggleRow').style.display='none';
@@ -846,18 +939,24 @@ function saveShift(){
   const date=document.getElementById('shiftDate').value;const start=document.getElementById('shiftStart').value;const end=document.getElementById('shiftEnd').value;
   if(!date||!start||!end){alert('Fill in date, start and end time');return}
   const shift={id:editingShiftId||uid(),jobId,date,start,end,breakMin:parseInt(document.getElementById('shiftBreak').value)||0,notes:document.getElementById('shiftNotes').value.trim()};
+  // OT
+  if(otOn){
+    shift.otHours=parseFloat(document.getElementById('shiftOTHours').value)||0;
+    const otRateVal=parseFloat(document.getElementById('shiftOTRate').value);
+    if(otRateVal>0)shift.otRate=otRateVal;// otherwise calcShiftPay uses 1.5x
+  }
 
   if(editingShiftId){const idx=state.shifts.findIndex(s=>s.id===editingShiftId);if(idx>=0)state.shifts[idx]=shift}
   else{
     state.shifts.push(shift);
-    // Handle recurring
-    if(recurringOn){
-      const days=getSelectedDays();
-      if(days.length>0){
-        const endDate=indefiniteOn?null:document.getElementById('repeatUntil').value;
-        const recurring=generateRecurringShifts(shift,days,endDate||null);
-        state.shifts.push(...recurring);
-      }
+    // Handle recurring — calendar picker dates
+    if(recurringOn&&pickedDates.size>0){
+      const rid=uid();shift.recurringId=rid;
+      pickedDates.forEach(ds=>{
+        if(ds!==date){// don't duplicate the original
+          state.shifts.push({...shift,id:uid(),date:ds,recurringId:rid});
+        }
+      });
     }
   }
   save();closeModal('shiftModal');renderDashboard();
@@ -865,23 +964,33 @@ function saveShift(){
   if(document.getElementById('screen-tax').classList.contains('active'))renderTax();
 }
 
+// ─── DELETE SHIFT — single vs series ───
 function deleteShift(){
   if(!editingShiftId)return;
   const s=state.shifts.find(x=>x.id===editingShiftId);
   if(s&&s.recurringId){
-    if(confirm('Delete all recurring shifts in this series, or just this one?\n\nOK = Delete all in series\nCancel = Delete just this one')){
-      state.shifts=state.shifts.filter(x=>x.recurringId!==s.recurringId);
-    }else{
-      state.shifts=state.shifts.filter(x=>x.id!==editingShiftId);
-    }
+    closeModal('shiftModal');openModal('deleteConfirmModal');
   }else{
     if(!confirm('Delete this shift?'))return;
     state.shifts=state.shifts.filter(x=>x.id!==editingShiftId);
+    save();closeModal('shiftModal');renderAll();
   }
-  save();closeModal('shiftModal');renderDashboard();
-  if(document.getElementById('screen-calendar').classList.contains('active'))renderCalendar();
-  if(document.getElementById('screen-tax').classList.contains('active'))renderTax();
 }
+function confirmDeleteShift(mode){
+  const s=state.shifts.find(x=>x.id===editingShiftId);
+  if(mode==='single'){
+    state.shifts=state.shifts.filter(x=>x.id!==editingShiftId);
+  }else{
+    // Delete this shift + all future shifts in the series
+    state.shifts=state.shifts.filter(x=>{
+      if(x.id===editingShiftId)return false;
+      if(x.recurringId===s.recurringId&&x.date>=s.date)return false;
+      return true;
+    });
+  }
+  save();closeModal('deleteConfirmModal');renderAll();
+}
+function renderAll(){renderDashboard();if(document.getElementById('screen-calendar').classList.contains('active'))renderCalendar();if(document.getElementById('screen-tax').classList.contains('active'))renderTax()}
 
 function openAddJob(){editingJobId=null;document.getElementById('jobModalTitle').textContent='Add Job';document.getElementById('deleteJobBtn').style.display='none';document.getElementById('jobName').value='';document.getElementById('jobRate').value='';document.getElementById('jobColor').value='#7C6FF7';document.getElementById('jobType').value='rotating';openModal('jobModal')}
 function openEditJob(id){const j=state.jobs.find(x=>x.id===id);if(!j)return;editingJobId=id;document.getElementById('jobModalTitle').textContent='Edit Job';document.getElementById('deleteJobBtn').style.display='block';document.getElementById('jobName').value=j.name;document.getElementById('jobRate').value=j.rate;document.getElementById('jobColor').value=j.color;document.getElementById('jobType').value=j.type;openModal('jobModal')}
@@ -890,6 +999,7 @@ function deleteJob(){if(!editingJobId)return;if(!confirm('Delete this job and al
 
 function saveSettings(){state.settings.otThreshold=parseFloat(document.getElementById('otThreshold').value)||40;state.settings.otMultiplier=parseFloat(document.getElementById('otMultiplier').value)||1.5;state.settings.weekStart=parseInt(document.getElementById('weekStart').value)||0;save()}
 function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nursex-backup-'+todayStr()+'.json';a.click()}
+function importData(input){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(e){try{const data=JSON.parse(e.target.result);if(!data.jobs||!data.shifts){alert('Invalid backup file.');return}if(!confirm('This will replace all current data with the backup. Continue?'))return;state=data;if(!state.taxPayments)state.taxPayments=[];if(!state.expenses)state.expenses=[];if(!state.settings)state.settings={otThreshold:40,otMultiplier:1.5,weekStart:0};save();location.reload()}catch(err){alert('Could not read file: '+err.message)}};reader.readAsText(file);input.value=''}
 document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)closeModal(o.id)})});
 </script>
 </body>
